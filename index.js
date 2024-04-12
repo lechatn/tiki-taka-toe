@@ -1,7 +1,7 @@
 import fetch from 'node-fetch';
 
 const APIkey = 'e5c31b3ed1377a20e949cb115bcfb3bd6fd558d9e57a63afa0916d392a25d255';
-const league_id = 152;
+const league_id = 3;
 
 const curl_options = {
   url: `https://apiv3.apifootball.com/?action=get_teams&league_id=${league_id}&APIkey=${APIkey}`,
@@ -21,7 +21,7 @@ fetch(curl_options.url, {
 })
 .then(response => response.json())
 .then(result => {
-  return Deno.writeTextFile('premier.json', JSON.stringify(result, null, 2));
+  return Deno.writeTextFile('championsLeague.json', JSON.stringify(result, null, 2));
 })
 .catch(error => {
   console.error('Error:', error);
