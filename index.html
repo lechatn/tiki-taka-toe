@@ -3,9 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="./static/burger.css">
+    <link rel="stylesheet" href="./static/popup.css">
+    <link rel="stylesheet" href="./static/style.css">
+    <title>Football Games</title>
 </head>
+
 <body>
+    <div class="nav">
+        <button class="burger" onclick="show()">
+            <div id="bar1" class="bar"></div>
+            <div id="bar2" class="bar"></div>
+            <div id="bar3" class="bar"></div>
+        </button>
+        <nav>
+            <h1>Football Games</h1>
+            <ul>
+                <li>
+                    <a>Game 1</a>
+                    <p>Description</p>
+                </li>
+                <li>
+                    <a>Game 2</a>
+                    <p>Description</p>
+                </li>
+                <li>
+                    <a>Game 3</a>
+                    <p>Description</p>
+                </li>
+                <li>
+                    <a>Game 4</a>
+                    <p>Description</p>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <header>
+        <a class="title" >Football Games</a>
+        <section class="button-connection">
+            <a href="#login" onclick="togglePopup()">Login</a>
+            <a href="./templates/signup.html">Sign Up</a>
+        </section>
+    </header>
+    <main>
+        <div id="wrapper">
+            <form action="">
+                <h1>Login</h1>
+                <div class="input-box-login">
+                    <input type="text" placeholder="Username" required>
+                    <i class="material-icons">
+                        account_circle
+                    </i>
+                </div>
+                <div class="input-box-login">
+                    <input type="password" placeholder="Password" required>
+                    <i class="material-icons">
+                        lock
+                    </i>
+                </div>
     
+                <div class="remember-forgot">
+                    <label class="checkbox-popup"><input type="checkbox">Remember me</label>
+                    <a href="#">Forgot password?</a>
+                </div>
+    
+                <button type="submit" class="btn-login"> Login </button>
+
+                <div class="signup-link">
+                    <p>Don't have an account? <a href="/signup">Signup now</a></p>
+                </div>
+                <a href="javascript:void(0)" onclick="togglePopup()" class="popup-exit">
+                    <i class="material-icons">
+                        close
+                    </i>
+                </a>
+            </form>
+            
+        </div>
+    </main>
+    <script src="./JS/login.js"></script>
+    <script src="./JS/burger.js"></script>
 </body>
 </html>
