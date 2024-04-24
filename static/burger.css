@@ -25,7 +25,6 @@ nav{
     width: 350px;
     height: 100%;
     background-color: #000;
-    opacity: 0.8;
     transition: .5s;
 }
 
@@ -37,6 +36,11 @@ nav{
     font-size: 1.5em;
     padding: 30px 30px;
     border-bottom: 1pt solid #252525;
+}
+
+.nav ul li a{
+    color: #fff;
+    text-decoration: none;
 }
 
 .nav p {
