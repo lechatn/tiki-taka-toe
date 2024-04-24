@@ -1,0 +1,32 @@
+:root {
+    --bg: #121213;
+    --base: #3a3A3c;
+    --false: #EAB308;
+    --true: #22C55E;
+}
+
+main {
+    display: grid;
+    place-items: center;
+    height: 80vh;
+}
+#game2 {
+    display: flex;
+    padding: 40px 40px;
+    border-radius: 5%;
+    background-color: var(--bg);
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+#game2 input {
+    background-color: var(--bg);
+    border: 2px solid darkgray;
+    outline: none;
+    padding: 15px;
+    border-radius: 50%;
+    font-family: 'Poppins', sans-serif;
+    font-size: 30px;
+    color: #fff;
+}
