@@ -41,7 +41,49 @@
             </ul>
         </nav>
     </div>
+    <header>
+        <a class="title">Games 3</a>
+        <section class="button-connection">
+            <a href="#login" onclick="togglePopup()">Login</a>
+            <a href="signup.html">Sign Up</a>
+        </section>
+    </header>
+    <main>
+        <div id="wrapper">
+            <form action="">
+                <h1>Login</h1>
+                <div class="input-box-login">
+                    <input type="text" placeholder="Username" required>
+                    <i class="material-icons">
+                        account_circle
+                    </i>
+                </div>
+                <div class="input-box-login">
+                    <input type="password" placeholder="Password" required>
+                    <i class="material-icons">
+                        lock
+                    </i>
+                </div>
+    
+                <div class="remember-forgot">
+                    <label class="checkbox-popup"><input type="checkbox">Remember me</label>
+                    <a href="#">Forgot password?</a>
+                </div>
+    
+                <button type="submit" class="btn-login"> Login </button>
+
+                <div class="signup-link">
+                    <p>Don't have an account? <a href="signup.html">Signup now</a></p>
+                </div>
+                <a href="javascript:void(0)" onclick="togglePopup()" class="popup-exit">
+                    <i class="material-icons">
+                        close
+                    </i>
+                </a>
+            </form>
+        </div>
+    </main>
+    <script src="./JS/login.js"></script>
     <script src="../JS/burger.js"></script>
     <script src="../JS/game3.js"></script>
-</body>
 </html>
