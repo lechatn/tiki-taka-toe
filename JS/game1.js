@@ -30,30 +30,30 @@ for(let j=0; j<allData.length; j++){
     }
 }
 
-// if user press any key and release
 input.onkeyup = (e)=>{
-    let userData = e.target.value; //user enetered data
+    let userData = e.target.value;
     let emptyArray = [];
     if(userData){
         emptyArray = playerArray.filter((data)=>{
-            //filtering array value and user characters to lowercase and return only those words which are start with user enetered chars
             return data.toLocaleLowerCase().includes(userData.toLocaleLowerCase()); 
         });
         emptyArray = emptyArray.map((data)=>{
-            // passing return data inside li tag
             return data = '<li>'+ data +'</li>';
         });
-        searchInput.classList.add("active"); //show autocomplete box
+        searchInput.classList.add("active");
         showSuggestions(emptyArray);
         let allList = resultBox.querySelectorAll("li");
         for (let i = 0; i < allList.length; i++) {
-            //adding onclick attribute in all li tag
-            allList[i].setAttribute("onclick", "select(this)");
+            allList[i].addEventListener('click', function() {
+                input.value = this.innerText;
+                searchInput.classList.remove("active");
+            });
         }
-    }else{
-        searchInput.classList.remove("active"); //hide autocomplete box
+    } else{
+        searchInput.classList.remove("active");
     }
 }
+
 
 function showSuggestions(list){
     let listData;
@@ -65,3 +65,5 @@ function showSuggestions(list){
     }
     resultBox.innerHTML = listData;
 }
+
+    
