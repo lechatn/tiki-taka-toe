@@ -10,6 +10,20 @@
 
 # - Jeu sur un seul écran à deux (possibilité de passer sur deux écrans)
 
-# -
+# - Essai1 :
+
+# - Essai2 :
+
+# - Essai3 :
+
+# - Essai4 :
+
+# - Essai5 :
+
+# - Essai6 :
+
+# - Essai7 :
+
+# - Essai8 :
 
 # -
