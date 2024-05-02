@@ -6,7 +6,6 @@ import premierLeague from "../data/premier.json" assert { type: "json" };
 import ligue1 from "../data/ligue1.json" assert { type: "json" };
 import serieA from "../data/seria.json" assert { type: "json" };
 import laLiga from "../data/liga.json" assert { type: "json" };
-import worldCup from "../data/worldCup.json" assert { type: "json" };
 
 const searchInput = document.querySelector(".searchInput");
 const input = searchInput.querySelector("input");
@@ -21,7 +20,6 @@ const allData = championsLeague.concat(
   ligue1,
   serieA,
   laLiga,
-  worldCup,
 );
 
 let playerArray = [];
@@ -30,7 +28,7 @@ for (let j = 0; j < allData.length; j++) {
   for (let i = 0; i < allData[j].players.length; i++) {
     if (playerArray.includes(allData[j].players[i].player_name)) {
       continue;
-    } else {
+    } else if (isValide(allData[j].players[i], allData[j])) {
       playerArray.push(allData[j].players[i].player_name);
     }
   }
@@ -39,11 +37,6 @@ for (let j = 0; j < allData.length; j++) {
 let result = randomPlayer();
 let playerToGuess = result.player;
 let playerTeamToGuess = result.team;
-while (!isValide(playerToGuess, playerTeamToGuess)) {
-  result = randomPlayer();
-  playerToGuess = result.player;
-  playerTeamToGuess = result.team;
-}
 
 let indiceBox = document.querySelector(".indice-box");
 let firstIndice = playerToGuess.player_number;
