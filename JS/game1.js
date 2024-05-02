@@ -39,8 +39,32 @@ for (let j = 0; j < allData.length; j++) {
 let result = randomPlayer();
 let playerToGuess = result.player;
 let playerTeamToGuess = result.team;
-console.log(playerToGuess);
+while (!isValide(playerToGuess, playerTeamToGuess)) {
+  result = randomPlayer();
+  playerToGuess = result.player;
+  playerTeamToGuess = result.team;
+}
 
+let indiceBox = document.querySelector(".indice-box");
+let firstIndice = playerToGuess.player_number;
+indiceBox.innerHTML = "Player number : " + firstIndice;
+let secondIndice = playerToGuess.player_age;
+let thirdIndice = playerToGuess.player_type;
+let fourthIndice = playerTeamToGuess.team_country;
+let fifthIndice = playerTeamToGuess.team_name;
+let arrayIndice = [
+  "",
+  secondIndice,
+  "",
+  thirdIndice,
+  "",
+  fourthIndice,
+  "",
+  fifthIndice,
+];
+let turn = 0;
+
+console.log(playerToGuess);
 
 // if user press any key and release
 input.onkeyup = (e) => {
@@ -63,14 +87,25 @@ input.onkeyup = (e) => {
       allList[i].addEventListener("click", function () {
         input.value = this.innerText;
         searchInput.classList.remove("active");
-        let playerTeam = allData.find((x) => x.players.some((y) => y.player_name === input.value));
-        let player = playerTeam.players.find((x) => x.player_name === input.value);
+        let playerTeam = allData.find((x) =>
+          x.players.some((y) => y.player_name === input.value)
+        );
+        let player = playerTeam.players.find((x) =>
+          x.player_name === input.value
+        );
         console.log(player);
         console.log(playerTeam);
-        testplayer(player, playerTeam, playerToGuess, playerTeamToGuess);
+        turn = testplayer(
+          player,
+          playerTeam,
+          playerToGuess,
+          playerTeamToGuess,
+          arrayIndice,
+          turn,
+        );
       });
-    } 
-}else {
+    }
+  } else {
     searchInput.classList.remove("active"); //hide autocomplete box
   }
 };
@@ -87,18 +122,77 @@ function showSuggestions(list) {
 }
 
 function randomPlayer() {
-    let randomPlayer = playerArray[Math.floor(Math.random() * playerArray.length)];
-    let team = allData.find((x) => x.players.some((y) => y.player_name === randomPlayer));
-    let player = team.players.find((x) => x.player_name === randomPlayer);
-    return {player, team};
+  let randomPlayer =
+    playerArray[Math.floor(Math.random() * playerArray.length)];
+  let team = allData.find((x) =>
+    x.players.some((y) => y.player_name === randomPlayer)
+  );
+  let player = team.players.find((x) => x.player_name === randomPlayer);
+  return { player, team };
 }
 
-function testplayer(player, playerTeam, playerToGuess, playerTeamToGuess) {
-    console.log(player.player_name);
-    console.log(playerToGuess);    
-    if (player.player_name === playerToGuess.player_name) {
-        console.log("Correct!");
-    } else {
-        console.log("Incorrect!");
+function testplayer(
+  player,
+  playerTeam,
+  playerToGuess,
+  playerTeamToGuess,
+  arrayIndice,
+  turn,
+) {
+  console.log(player.player_name);
+  console.log(playerToGuess);
+  let resultBox = document.querySelector(".map");
+  let indiceBox = document.querySelector(".indice-box");
+  if (player.player_name === playerToGuess.player_name) {
+    let new_data = "<p>Correct</p>";
+    resultBox.innerHTML = new_data;
+    console.log("Correct");
+  } else {
+    let new_data = "<p>Incorrect</p>";
+    resultBox.innerHTML = new_data;
+    console.log("Incorrect, try again!");
+    switch (turn) {
+      case 1:
+        let newdiv = document.createElement("div");
+        newdiv.innerHTML = "Player age : " + arrayIndice[1];
+        indiceBox.appendChild(newdiv);
+        break;
+      case 3:
+        let newdiv2 = document.createElement("div");
+        newdiv2.innerHTML = "Player position : " + arrayIndice[3];
+        indiceBox.appendChild(newdiv2);
+        break;
+      case 5:
+        let newdiv3 = document.createElement("div");
+        newdiv3.innerHTML = "Team country : " + arrayIndice[5];
+        indiceBox.appendChild(newdiv3);
+        break;
+      case 7:
+        let newdiv4 = document.createElement("div");
+        newdiv4.innerHTML = "Team name : " + arrayIndice[7];
+        indiceBox.appendChild(newdiv4);
+        break;
+      default:
+        break;
     }
+  }
+  turn++;
+  if (turn === 9) {
+    let new_data = "<p>Game Over, the good player was " +
+      playerToGuess.player_name + "</p>";
+    resultBox.innerHTML = new_data;
+  }
+  console.log(turn);
+  return turn;
+}
+
+function isValide(player, playerTeam) {
+  if (
+    player.player_number === "" || player.player_age === "" ||
+    player.player_type === "" || playerTeam.team_country === "" ||
+    playerTeam.team_name === ""
+  ) {
+    return false;
+  }
+  return true;
 }
