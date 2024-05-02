@@ -99,3 +99,8 @@
   align-items: center;
   margin-top: 20px;
 }
+
+
+.guess-indice {
+  display: flex;
+}
