@@ -138,13 +138,8 @@ function testplayer(
   let indiceBox = document.querySelector(".indice-box");
 
   if (player.player_name === playerToGuess.player_name) {
-    let new_data = "<p>Correct</p>";
-    resultBox.innerHTML = new_data;
-    console.log("Correct");
+    
   } else {
-    let new_data = "<p>Incorrect</p>";
-    resultBox.innerHTML = new_data;
-    console.log("Incorrect, try again!");
 
     displayGuess(player, playerToGuess, playerTeam, playerTeamToGuess);
 
@@ -200,79 +195,60 @@ function displayGuess(player, playerToGuess, playerTeam, playerTeamToGuess) {
   let guessName = document.createElement("div");
   guessName.innerHTML = player.player_name;
   guessName.style.marginTop = "10px";
-  guessIndice.appendChild(guessName);
+  let newdiv1 = document.createElement("div");
+  let newdiv2 = document.createElement("div");
+  let newdiv3 = document.createElement("div");
+  let newdiv4 = document.createElement("div");
+  let newdiv5 = document.createElement("div");
 
   if (player.player_number === playerToGuess.player_number) {
-    let newdiv = document.createElement("div");
-    newdiv.innerHTML = "#" + player.player_number;
-    newdiv.style.color = "green";
-    guessIndice.appendChild(newdiv);
+    newdiv1.innerHTML = "#" + player.player_number;
+    newdiv1.style.color = "green";
   } else {
     if (parseInt(player.player_number) > parseInt(playerToGuess.player_number)) {
-        let newdiv = document.createElement("div");
-        newdiv.innerHTML = "#" + player.player_number + "⬇️";
-        newdiv.style.color = "red";
-        guessIndice.appendChild(newdiv);
+        newdiv1.innerHTML = "#" + player.player_number + "⬇️";
+        newdiv1.style.color = "red";
     } else {
-        let newdiv = document.createElement("div");
-        newdiv.innerHTML = "#" + player.player_number + "⬆️";
-        newdiv.style.color = "red";
-        guessIndice.appendChild(newdiv);
+        newdiv1.innerHTML = "#" + player.player_number + "⬆️";
+        newdiv1.style.color = "red";
     }
   }
 
   if (player.player_age === playerToGuess.player_age) {
-    let newdiv = document.createElement("div");
-    newdiv.innerHTML = player.player_age + "y";
-    newdiv.style.color = "green";
-    guessIndice.appendChild(newdiv);
+    newdiv2.innerHTML = player.player_age + "y";
+    newdiv2.style.color = "green";
   } else {
     if (parseInt(player.player_age) > parseInt(playerToGuess.player_age)) {
-        let newdiv = document.createElement("div");
-        newdiv.innerHTML = player.player_age + "y" + "⬇️";
-        newdiv.style.color = "red";
-        guessIndice.appendChild(newdiv);
+        newdiv2.innerHTML = player.player_age + "y" + "⬇️";
+        newdiv2.style.color = "red";
     } else {
-        let newdiv = document.createElement("div");
-        newdiv.innerHTML = player.player_age + "y" + "⬆️";
-        newdiv.style.color = "red";
-        guessIndice.appendChild(newdiv);
+        newdiv2.innerHTML = player.player_age + "y" + "⬆️";
+        newdiv2.style.color = "red";
     }
   }
 
   if (player.player_type === playerToGuess.player_type) {
-    let newdiv = document.createElement("div");
-    newdiv.innerHTML = player.player_type;
-    newdiv.style.color = "green";
-    guessIndice.appendChild(newdiv);
+    newdiv3.innerHTML = player.player_type;
+    newdiv3.style.color = "green";
   } else {
-    let newdiv = document.createElement("div");
-    newdiv.innerHTML = player.player_type;
-    newdiv.style.color = "red";
-    guessIndice.appendChild(newdiv);
+    newdiv3.innerHTML = player.player_type;
+    newdiv3.style.color = "red";
   }
 
   if (playerTeam.team_country === playerTeamToGuess.team_country) {
-    let newdiv = document.createElement("div");
-    newdiv.innerHTML = playerTeamToGuess.team_country;
-    newdiv.style.color = "green";
-    guessIndice.appendChild(newdiv);
+    newdiv4.innerHTML = playerTeamToGuess.team_country;
+    newdiv4.style.color = "green";
   } else {
-    let newdiv = document.createElement("div");
-    newdiv.innerHTML = playerTeam.team_country;
-    newdiv.style.color = "red";
-    guessIndice.appendChild(newdiv);
+    newdiv4.innerHTML = playerTeam.team_country;
+    newdiv4.style.color = "red";
   }
 
   if (playerTeam.team_name === playerTeamToGuess.team_name) {
-    let newdiv = document.createElement("div");
-    newdiv.innerHTML = playerTeamToGuess.team_name;
-    newdiv.style.color = "green";
-    guessIndice.appendChild(newdiv);
+    newdiv5.innerHTML = playerTeamToGuess.team_name;
+    newdiv5.style.color = "green";
   } else {
-    let newdiv = document.createElement("div");
-    newdiv.innerHTML = playerTeam.team_name;
-    newdiv.style.color = "red";
-    guessIndice.appendChild(newdiv);
+    newdiv5.innerHTML = playerTeam.team_name;
+    newdiv5.style.color = "red";
   }
+  guessIndice.prepend(guessName,newdiv1, newdiv2, newdiv3, newdiv4, newdiv5);
 }
