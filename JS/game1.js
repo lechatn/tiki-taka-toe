@@ -1,6 +1,3 @@
-import championsLeague from "../data/championsLeague.json" assert {
-  type: "json",
-};
 import bundesliga from "../data/bundes.json" assert { type: "json" };
 import premierLeague from "../data/premier.json" assert { type: "json" };
 import ligue1 from "../data/ligue1.json" assert { type: "json" };
@@ -14,19 +11,18 @@ const icon = searchInput.querySelector(".icon");
 let linkTag = searchInput.querySelector("a");
 let webLink;
 
-const allData = championsLeague.concat(
+const allData = laLiga.concat(
   bundesliga,
   premierLeague,
   ligue1,
   serieA,
-  laLiga,
 );
 
 let playerArray = [];
 
 for (let j = 0; j < allData.length; j++) {
   for (let i = 0; i < allData[j].players.length; i++) {
-    if (playerArray.includes(allData[j].players[i].player_name)) {
+    if (playerArray.includes(allData[j].players[i])) {
       continue;
     } else if (isValide(allData[j].players[i], allData[j])) {
       playerArray.push(allData[j].players[i].player_name);
@@ -37,24 +33,6 @@ for (let j = 0; j < allData.length; j++) {
 let result = randomPlayer();
 let playerToGuess = result.player;
 let playerTeamToGuess = result.team;
-
-let indiceBox = document.querySelector(".indice-box");
-let firstIndice = playerToGuess.player_number;
-indiceBox.innerHTML = "Player number : " + firstIndice;
-let secondIndice = playerToGuess.player_age;
-let thirdIndice = playerToGuess.player_type;
-let fourthIndice = playerTeamToGuess.team_country;
-let fifthIndice = playerTeamToGuess.team_name;
-let arrayIndice = [
-  "",
-  secondIndice,
-  "",
-  thirdIndice,
-  "",
-  fourthIndice,
-  "",
-  fifthIndice,
-];
 let turn = 0;
 
 console.log(playerToGuess);
@@ -93,7 +71,6 @@ input.onkeyup = (e) => {
           playerTeam,
           playerToGuess,
           playerTeamToGuess,
-          arrayIndice,
           turn,
         );
       });
@@ -129,44 +106,17 @@ function testplayer(
   playerTeam,
   playerToGuess,
   playerTeamToGuess,
-  arrayIndice,
   turn,
 ) {
   console.log(player.player_name);
   console.log(playerToGuess);
   let resultBox = document.querySelector(".map");
-  let indiceBox = document.querySelector(".indice-box");
 
   if (player.player_name === playerToGuess.player_name) {
-    
-  } else {
-
     displayGuess(player, playerToGuess, playerTeam, playerTeamToGuess);
-
-    switch (turn) {
-      case 1:
-        let newdiv = document.createElement("div");
-        newdiv.innerHTML = "Player age : " + arrayIndice[1];
-        indiceBox.appendChild(newdiv);
-        break;
-      case 3:
-        let newdiv2 = document.createElement("div");
-        newdiv2.innerHTML = "Player position : " + arrayIndice[3];
-        indiceBox.appendChild(newdiv2);
-        break;
-      case 5:
-        let newdiv3 = document.createElement("div");
-        newdiv3.innerHTML = "Team country : " + arrayIndice[5];
-        indiceBox.appendChild(newdiv3);
-        break;
-      case 7:
-        let newdiv4 = document.createElement("div");
-        newdiv4.innerHTML = "Team name : " + arrayIndice[7];
-        indiceBox.appendChild(newdiv4);
-        break;
-      default:
-        break;
-    }
+    win(playerToGuess);
+  } else {
+    displayGuess(player, playerToGuess, playerTeam, playerTeamToGuess);
   }
   turn++;
   if (turn === 9) {
@@ -182,7 +132,7 @@ function isValide(player, playerTeam) {
   if (
     player.player_number === "" || player.player_age === "" ||
     player.player_type === "" || playerTeam.team_country === "" ||
-    playerTeam.team_name === ""
+    playerTeam.team_name === "" || player.player_image === ""
   ) {
     return false;
   }
@@ -251,4 +201,14 @@ function displayGuess(player, playerToGuess, playerTeam, playerTeamToGuess) {
     newdiv5.style.color = "red";
   }
   guessIndice.prepend(guessName,newdiv1, newdiv2, newdiv3, newdiv4, newdiv5);
+}
+
+function win(playerToGuess) {
+  let new_data = "<p>Congratulations, you found the player " +
+      playerToGuess.player_name + "</p>" +
+      "<img src='" + playerToGuess.player_image + "' alt='Sorry, no image avaible!'>";
+
+  let resultBox = document.querySelector(".map");
+  resultBox.innerHTML = new_data;
+  
 }
