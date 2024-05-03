@@ -16,32 +16,9 @@ const allData = laLiga.concat(
   serieA,
 );
 
-let playerArray = [];
-let playerPhoto = [];
-
-for (let j = 0; j < allData.length; j++) {
-  for (let i = 0; i < allData[j].players.length; i++) {
-    if (playerArray.includes(allData[j].players[i])) {
-      continue;
-    } else if (allData[j].players[i].player_name[1] != ".") {
-      continue;
-    } else if (
-      allData[j].players[i].player_name.split(
-        0,
-        allData[j].players[i].player_name.length - 1,
-      ).includes(" ")
-    ) {
-      continue;
-    } else if (isValide(allData[j].players[i], allData[j])) {
-        playerArray.push(allData[j].players[i].player_name.slice(3));
-        playerPhoto.push(allData[j].players[i].player_image);
-    }
-  }
-}
-
-
+let [playerArray, playerPhoto] = loadData(allData);
 let [result, photo] = randomPlayer();
-console.log(result);
+startListener(photo);
 launchGame(result);
 
 function randomPlayer() {
@@ -51,14 +28,9 @@ function randomPlayer() {
 }
 
 function isValide(player, playerTeam) {
-  if (
-    player.player_number === "" || player.player_age === "" ||
+    return player.player_number === "" || player.player_age === "" ||
     player.player_type === "" || playerTeam.team_country === "" ||
-    playerTeam.team_name === "" || player.player_image === ""
-  ) {
-    return false;
-  }
-  return true;
+    playerTeam.team_name === "" || player.player_image === "";
 }
 
 function launchGame(result) {
@@ -68,25 +40,29 @@ function launchGame(result) {
   let turn = 0;
   for (let i = 0; i < playerToGuess.length; i++) {
     if (i === 0) {
-        let new_data = `<input type="text" class="circle" maxlength="1" value="${playerToGuess[i]}"></input>`;
+        let new_data = `<input type="text" class="circle" maxlength="1" value="${playerToGuess[i]}" style="background-color: green;" readonly></input>`;        box1.innerHTML += new_data;
+    } else if (i === 1) {
+        let new_data = '<input type="text" class="circle" maxlength="1" autofocus></input>';
         box1.innerHTML += new_data;
-        document.querySelector(".circle").focus();
     } else {
-        let new_data = '<input type="text" class="circle" maxlength="1"></input>';
+        let new_data = `<input type="text" class="circle" maxlength="1"></input>`;
         box1.innerHTML += new_data;
-        document.querySelector(".circle").focus();
     }
   }
-
   playGame(playerToGuess, userInput, turn);
 }
 
 function tryPlayer(playerToGuess, userInput, turn, circles) {
   turn++;
+  userInput.toLowerCase();
   if (playerToGuess === userInput) {
     for (let circle of circles) {
       circle.style.backgroundColor = "green";
     }
+    document.querySelector(".player").src = photo; 
+    document.querySelector(".player").style.display = "block";
+    document.querySelector(".revealPhoto").style.display = "none"; 
+    document.querySelector(".playagain").style.display = "block"; 
     console.log("You won!");
     return;
   }
@@ -101,94 +77,34 @@ function tryPlayer(playerToGuess, userInput, turn, circles) {
     circles[i].disabled = true;
   }
   if (turn === 6) {
-    prompt("You lost! The player was " + playerToGuess);
+    document.querySelector(".player").src = photo; 
+    document.querySelector(".player").style.display = "block";
+    document.querySelector(".revealPhoto").style.display = "none"; 
+    document.querySelector(".playagain").style.display = "block"; 
   }
-  switch (turn) {
-    case 1:
-      let box2 = document.querySelector(".box2");
-      for (let i = 0; i < playerToGuess.length; i++) {
-        let new_data =
-          '<input type="text" class="circle2" maxlength="1"></input>';
-        box2.innerHTML += new_data;
-        document.querySelector(".circle2").focus();
-      }
-      break;
-
-    case 2:
-      let box3 = document.querySelector(".box3");
-      for (let i = 0; i < playerToGuess.length; i++) {
-        let new_data =
-          '<input type="text" class="circle3" maxlength="1"></input>';
-        box3.innerHTML += new_data;
-        document.querySelector(".circle3").focus();
-      }
-      break;
-
-    case 3:
-      let box4 = document.querySelector(".box4");
-      for (let i = 0; i < playerToGuess.length; i++) {
-        let new_data =
-          '<input type="text" class="circle4" maxlength="1"></input>';
-        box4.innerHTML += new_data;
-        document.querySelector(".circle4").focus();
-      }
-      break;
-
-    case 4:
-      let box5 = document.querySelector(".box5");
-      for (let i = 0; i < playerToGuess.length; i++) {
-        let new_data =
-          '<input type="text" class="circle5" maxlength="1"></input>';
-        box5.innerHTML += new_data;
-        document.querySelector(".circle5").focus();
-      }
-      break;
-
-    case 5:
-      let box6 = document.querySelector(".box6");
-      for (let i = 0; i < playerToGuess.length; i++) {
-        let new_data =
-          '<input type="text" class="circle6" maxlength="1"></input>';
-        box6.innerHTML += new_data;
-        document.querySelector(".circle6").focus();
-      }
-      break;
-
-    default:
-      break;
-  }
+  let box = document.querySelector(`.box${turn + 1}`);
+    for (let i = 0; i < playerToGuess.length; i++) {
+        let new_data = i === 0
+            ? `<input type="text" class="circle${turn + 1}" maxlength="1" value="${playerToGuess[i]}" style="background-color: green;" readonly></input>`
+            : `<input type="text" class="circle${turn + 1}" maxlength="1"></input>`;
+        box.innerHTML += new_data;
+}
   playGame(playerToGuess, userInput, turn);
 }
 
 function playGame(playerToGuess, userInput, turn) {
   userInput = "";
   let circles;
-  switch (turn) {
-    case 0:
-      circles = document.querySelectorAll(".circle");
-      break;
-    case 1:
-      circles = document.querySelectorAll(".circle2");
-      break;
-    case 2:
-      circles = document.querySelectorAll(".circle3");
-      break;
-    case 3:
-      circles = document.querySelectorAll(".circle4");
-      break;
-    case 4:
-      circles = document.querySelectorAll(".circle5");
-      break;
-    case 5:
-      circles = document.querySelectorAll(".circle6");
-      break;
-    default:
-      break;
+  if (turn === 0) {
+    circles = document.querySelectorAll(".circle");
+  } else{
+    circles = document.querySelectorAll(`.circle${turn + 1}`);
   }
+  circles[1].focus();
   circles.forEach((circle, index) => {
     circle.addEventListener("input", () => {
       userInput = "";
-      userInput = Array.from(circles).map((input) => input.value).join("");
+      userInput = Array.from(circles).map((input) => input.value).join("").toLocaleLowerCase();
       if (index < circles.length - 1 && circles[index].value !== "") {
         circles[index + 1].focus();
       }
@@ -201,7 +117,10 @@ function playGame(playerToGuess, userInput, turn) {
         }
         event.preventDefault(); // Empêche le comportement par défaut de la touche Entrée
       } else if (event.key === "Backspace") {
-        userInput = Array.from(circles).map((input) => input.value).join("");
+        if (index === 1) {
+          return;
+        }
+        userInput = Array.from(circles).map((input) => input.value).join("").toLocaleLowerCase;
         if (userInput.length > 0) {
           userInput = userInput.slice(0, -1);
           console.log(userInput);
@@ -219,12 +138,44 @@ function playGame(playerToGuess, userInput, turn) {
   });
 }
 
+function loadData(allData){
+    let playerArray = [];
+    let playerPhoto = [];
+    for (let j = 0; j < allData.length; j++) {
+    for (let i = 0; i < allData[j].players.length; i++) {
+        if (playerArray.includes(allData[j].players[i])) {
+        continue;
+        } else if (allData[j].players[i].player_name[1] != ".") {
+        continue;
+        } else if (
+        allData[j].players[i].player_name.split(
+            0,
+            allData[j].players[i].player_name.length - 1,
+        ).includes(" ")
+        ) {
+        continue;
+        } else if (isValide(allData[j].players[i], allData[j])) {
+            playerArray.push(allData[j].players[i].player_name.slice(3));
+            playerPhoto.push(allData[j].players[i].player_image);
+        }
+    }
+    }
+    return [playerArray, playerPhoto];
+}
 
-let button = document.querySelector(".revealPhoto");
-button.addEventListener("click", () => {    
+function startListener(photo) {
+    let button = document.querySelector(".revealPhoto");
+    button.addEventListener("click", () => {    
     button.style.display = "none";
     let photoBox = document.querySelector(".player");
     photoBox.src = photo;
     photoBox.style.display = "block";
 }
 );
+
+let button2 = document.querySelector(".playagain");
+button2.addEventListener("click", () => {
+    window.location.reload();
+}
+);
+}
