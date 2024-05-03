@@ -1,12 +1,8 @@
-import championsLeague from "../data/championsLeague.json" assert {
-  type: "json",
-};
 import bundesliga from "../data/bundes.json" assert { type: "json" };
 import premierLeague from "../data/premier.json" assert { type: "json" };
 import ligue1 from "../data/ligue1.json" assert { type: "json" };
 import serieA from "../data/seria.json" assert { type: "json" };
 import laLiga from "../data/liga.json" assert { type: "json" };
-import worldCup from "../data/worldCup.json" assert { type: "json" };
 
 const searchInput = document.querySelector(".searchInput");
 const input = searchInput.querySelector("input");
@@ -15,22 +11,20 @@ const icon = searchInput.querySelector(".icon");
 let linkTag = searchInput.querySelector("a");
 let webLink;
 
-const allData = championsLeague.concat(
+const allData = laLiga.concat(
   bundesliga,
   premierLeague,
   ligue1,
   serieA,
-  laLiga,
-  worldCup,
 );
 
 let playerArray = [];
 
 for (let j = 0; j < allData.length; j++) {
   for (let i = 0; i < allData[j].players.length; i++) {
-    if (playerArray.includes(allData[j].players[i].player_name)) {
+    if (playerArray.includes(allData[j].players[i])) {
       continue;
-    } else {
+    } else if (isValide(allData[j].players[i], allData[j])) {
       playerArray.push(allData[j].players[i].player_name);
     }
   }
@@ -39,29 +33,6 @@ for (let j = 0; j < allData.length; j++) {
 let result = randomPlayer();
 let playerToGuess = result.player;
 let playerTeamToGuess = result.team;
-while (!isValide(playerToGuess, playerTeamToGuess)) {
-  result = randomPlayer();
-  playerToGuess = result.player;
-  playerTeamToGuess = result.team;
-}
-
-let indiceBox = document.querySelector(".indice-box");
-let firstIndice = playerToGuess.player_number;
-indiceBox.innerHTML = "Player number : " + firstIndice;
-let secondIndice = playerToGuess.player_age;
-let thirdIndice = playerToGuess.player_type;
-let fourthIndice = playerTeamToGuess.team_country;
-let fifthIndice = playerTeamToGuess.team_name;
-let arrayIndice = [
-  "",
-  secondIndice,
-  "",
-  thirdIndice,
-  "",
-  fourthIndice,
-  "",
-  fifthIndice,
-];
 let turn = 0;
 
 console.log(playerToGuess);
@@ -100,7 +71,6 @@ input.onkeyup = (e) => {
           playerTeam,
           playerToGuess,
           playerTeamToGuess,
-          arrayIndice,
           turn,
         );
       });
@@ -136,55 +106,25 @@ function testplayer(
   playerTeam,
   playerToGuess,
   playerTeamToGuess,
-  arrayIndice,
   turn,
 ) {
   console.log(player.player_name);
   console.log(playerToGuess);
   let resultBox = document.querySelector(".map");
-  let indiceBox = document.querySelector(".indice-box");
 
   if (player.player_name === playerToGuess.player_name) {
-    let new_data = "<p>Correct</p>";
-    resultBox.innerHTML = new_data;
-    console.log("Correct");
-  } else {
-    let new_data = "<p>Incorrect</p>";
-    resultBox.innerHTML = new_data;
-    console.log("Incorrect, try again!");
-
     displayGuess(player, playerToGuess, playerTeam, playerTeamToGuess);
-
-    switch (turn) {
-      case 1:
-        let newdiv = document.createElement("div");
-        newdiv.innerHTML = "Player age : " + arrayIndice[1];
-        indiceBox.appendChild(newdiv);
-        break;
-      case 3:
-        let newdiv2 = document.createElement("div");
-        newdiv2.innerHTML = "Player position : " + arrayIndice[3];
-        indiceBox.appendChild(newdiv2);
-        break;
-      case 5:
-        let newdiv3 = document.createElement("div");
-        newdiv3.innerHTML = "Team country : " + arrayIndice[5];
-        indiceBox.appendChild(newdiv3);
-        break;
-      case 7:
-        let newdiv4 = document.createElement("div");
-        newdiv4.innerHTML = "Team name : " + arrayIndice[7];
-        indiceBox.appendChild(newdiv4);
-        break;
-      default:
-        break;
-    }
+    win(playerToGuess);
+  } else {
+    displayGuess(player, playerToGuess, playerTeam, playerTeamToGuess);
   }
   turn++;
   if (turn === 9) {
     let new_data = "<p>Game Over, the good player was " +
       playerToGuess.player_name + "</p>";
     resultBox.innerHTML = new_data;
+  } else if (turn === 4) {
+    document.querySelector(".reveal").style.display = "flex";
   }
   console.log(turn);
   return turn;
@@ -194,7 +134,7 @@ function isValide(player, playerTeam) {
   if (
     player.player_number === "" || player.player_age === "" ||
     player.player_type === "" || playerTeam.team_country === "" ||
-    playerTeam.team_name === ""
+    playerTeam.team_name === "" || player.player_image === ""
   ) {
     return false;
   }
@@ -207,79 +147,78 @@ function displayGuess(player, playerToGuess, playerTeam, playerTeamToGuess) {
   let guessName = document.createElement("div");
   guessName.innerHTML = player.player_name;
   guessName.style.marginTop = "10px";
-  guessIndice.appendChild(guessName);
+  let newdiv1 = document.createElement("div");
+  let newdiv2 = document.createElement("div");
+  let newdiv3 = document.createElement("div");
+  let newdiv4 = document.createElement("div");
+  let newdiv5 = document.createElement("div");
 
   if (player.player_number === playerToGuess.player_number) {
-    let newdiv = document.createElement("div");
-    newdiv.innerHTML = "#" + player.player_number;
-    newdiv.style.color = "green";
-    guessIndice.appendChild(newdiv);
+    newdiv1.innerHTML = "#" + player.player_number;
+    newdiv1.style.color = "green";
   } else {
     if (parseInt(player.player_number) > parseInt(playerToGuess.player_number)) {
-        let newdiv = document.createElement("div");
-        newdiv.innerHTML = "#" + player.player_number + "⬇️";
-        newdiv.style.color = "red";
-        guessIndice.appendChild(newdiv);
+        newdiv1.innerHTML = "#" + player.player_number + "⬇️";
+        newdiv1.style.color = "red";
     } else {
-        let newdiv = document.createElement("div");
-        newdiv.innerHTML = "#" + player.player_number + "⬆️";
-        newdiv.style.color = "red";
-        guessIndice.appendChild(newdiv);
+        newdiv1.innerHTML = "#" + player.player_number + "⬆️";
+        newdiv1.style.color = "red";
     }
   }
 
   if (player.player_age === playerToGuess.player_age) {
-    let newdiv = document.createElement("div");
-    newdiv.innerHTML = player.player_age + "y";
-    newdiv.style.color = "green";
-    guessIndice.appendChild(newdiv);
+    newdiv2.innerHTML = player.player_age + "y";
+    newdiv2.style.color = "green";
   } else {
     if (parseInt(player.player_age) > parseInt(playerToGuess.player_age)) {
-        let newdiv = document.createElement("div");
-        newdiv.innerHTML = player.player_age + "y" + "⬇️";
-        newdiv.style.color = "red";
-        guessIndice.appendChild(newdiv);
+        newdiv2.innerHTML = player.player_age + "y" + "⬇️";
+        newdiv2.style.color = "red";
     } else {
-        let newdiv = document.createElement("div");
-        newdiv.innerHTML = player.player_age + "y" + "⬆️";
-        newdiv.style.color = "red";
-        guessIndice.appendChild(newdiv);
+        newdiv2.innerHTML = player.player_age + "y" + "⬆️";
+        newdiv2.style.color = "red";
     }
   }
 
   if (player.player_type === playerToGuess.player_type) {
-    let newdiv = document.createElement("div");
-    newdiv.innerHTML = player.player_type;
-    newdiv.style.color = "green";
-    guessIndice.appendChild(newdiv);
+    newdiv3.innerHTML = player.player_type;
+    newdiv3.style.color = "green";
   } else {
-    let newdiv = document.createElement("div");
-    newdiv.innerHTML = player.player_type;
-    newdiv.style.color = "red";
-    guessIndice.appendChild(newdiv);
+    newdiv3.innerHTML = player.player_type;
+    newdiv3.style.color = "red";
   }
 
   if (playerTeam.team_country === playerTeamToGuess.team_country) {
-    let newdiv = document.createElement("div");
-    newdiv.innerHTML = playerTeamToGuess.team_country;
-    newdiv.style.color = "green";
-    guessIndice.appendChild(newdiv);
+    newdiv4.innerHTML = playerTeamToGuess.team_country;
+    newdiv4.style.color = "green";
   } else {
-    let newdiv = document.createElement("div");
-    newdiv.innerHTML = playerTeam.team_country;
-    newdiv.style.color = "red";
-    guessIndice.appendChild(newdiv);
+    newdiv4.innerHTML = playerTeam.team_country;
+    newdiv4.style.color = "red";
   }
 
   if (playerTeam.team_name === playerTeamToGuess.team_name) {
-    let newdiv = document.createElement("div");
-    newdiv.innerHTML = playerTeamToGuess.team_name;
-    newdiv.style.color = "green";
-    guessIndice.appendChild(newdiv);
+    newdiv5.innerHTML = playerTeamToGuess.team_name;
+    newdiv5.style.color = "green";
   } else {
-    let newdiv = document.createElement("div");
-    newdiv.innerHTML = playerTeam.team_name;
-    newdiv.style.color = "red";
-    guessIndice.appendChild(newdiv);
+    newdiv5.innerHTML = playerTeam.team_name;
+    newdiv5.style.color = "red";
   }
+  guessIndice.prepend(guessName,newdiv1, newdiv2, newdiv3, newdiv4, newdiv5);
 }
+
+function win(playerToGuess) {
+  let new_data = "<p>Congratulations, you found the player " +
+      playerToGuess.player_name + "</p>" +
+      "<img src='" + playerToGuess.player_image + "' alt='Sorry, no image avaible!'>";
+
+  let resultBox = document.querySelector(".map");
+  resultBox.innerHTML = new_data;
+  
+}
+
+let button = document.querySelector(".reveal");
+button.addEventListener("click", () => {
+  let image = document.querySelector(".team");
+  image.src = playerTeamToGuess.team_badge;
+  image.style.display = "flex";
+  button.style.display = "none";
+});

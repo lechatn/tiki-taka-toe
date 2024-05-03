@@ -78,8 +78,6 @@
 }
 
 .titre {
-  font-size: 30px;
-  font-weight: 600;
   color: #000000;
   text-align: center;
   margin-bottom: 20px;
@@ -98,4 +96,12 @@
   justify-content: center;
   align-items: center;
   margin-top: 20px;
+}
+
+.team {
+  display: none;
+}
+
+.reveal {
+  display: none;
 }
