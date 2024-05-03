@@ -17,6 +17,7 @@ const allData = laLiga.concat(
 );
 
 let playerArray = [];
+let playerPhoto = [];
 
 for (let j = 0; j < allData.length; j++) {
   for (let i = 0; i < allData[j].players.length; i++) {
@@ -32,24 +33,21 @@ for (let j = 0; j < allData.length; j++) {
     ) {
       continue;
     } else if (isValide(allData[j].players[i], allData[j])) {
-      playerArray.push(allData[j].players[i].player_name.slice(3));
+        playerArray.push(allData[j].players[i].player_name.slice(3));
+        playerPhoto.push(allData[j].players[i].player_image);
     }
   }
 }
 
-console.log(playerArray);
-console.log(playerArray.length);
 
-let result = randomPlayer();
+let [result, photo] = randomPlayer();
 console.log(result);
 launchGame(result);
 
 function randomPlayer() {
-  let randomPlayer =
-    playerArray[Math.floor(Math.random() * playerArray.length)];
-  console.log(randomPlayer);
-  return randomPlayer.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-    .toLowerCase();
+    let randomIndex = Math.floor(Math.random() * playerArray.length);
+    let randomPlayer = playerArray[randomIndex];
+    return [randomPlayer.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase(), playerPhoto[randomIndex]];
 }
 
 function isValide(player, playerTeam) {
@@ -69,9 +67,15 @@ function launchGame(result) {
   let userInput = "";
   let turn = 0;
   for (let i = 0; i < playerToGuess.length; i++) {
-    let new_data = '<input type="text" class="circle" maxlength="1"></input>';
-    box1.innerHTML += new_data;
-    document.querySelector(".circle").focus();
+    if (i === 0) {
+        let new_data = `<input type="text" class="circle" maxlength="1" value="${playerToGuess[i]}"></input>`;
+        box1.innerHTML += new_data;
+        document.querySelector(".circle").focus();
+    } else {
+        let new_data = '<input type="text" class="circle" maxlength="1"></input>';
+        box1.innerHTML += new_data;
+        document.querySelector(".circle").focus();
+    }
   }
 
   playGame(playerToGuess, userInput, turn);
@@ -214,3 +218,13 @@ function playGame(playerToGuess, userInput, turn) {
     });
   });
 }
+
+
+let button = document.querySelector(".revealPhoto");
+button.addEventListener("click", () => {    
+    button.style.display = "none";
+    let photoBox = document.querySelector(".player");
+    photoBox.src = photo;
+    photoBox.style.display = "block";
+}
+);

@@ -27,3 +27,8 @@ p {
     text-align: center;
     margin-top: 20px;
 }
+
+.player{
+    display: none;
+    justify-content: center;
+}
