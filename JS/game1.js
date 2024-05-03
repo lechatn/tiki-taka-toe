@@ -123,6 +123,8 @@ function testplayer(
     let new_data = "<p>Game Over, the good player was " +
       playerToGuess.player_name + "</p>";
     resultBox.innerHTML = new_data;
+  } else if (turn === 4) {
+    document.querySelector(".reveal").style.display = "flex";
   }
   console.log(turn);
   return turn;
