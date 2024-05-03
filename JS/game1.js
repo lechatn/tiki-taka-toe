@@ -212,3 +212,11 @@ function win(playerToGuess) {
   resultBox.innerHTML = new_data;
   
 }
+
+let button = document.querySelector(".reveal");
+button.addEventListener("click", () => {
+  let image = document.querySelector(".team");
+  image.src = playerTeamToGuess.team_badge;
+  image.style.display = "flex";
+  button.style.display = "none";
+});

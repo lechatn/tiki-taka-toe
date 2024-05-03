@@ -97,3 +97,7 @@
   align-items: center;
   margin-top: 20px;
 }
+
+.team {
+  display: none;
+}
