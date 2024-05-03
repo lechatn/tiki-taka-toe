@@ -7,9 +7,6 @@ import laLiga from "../data/liga.json" assert { type: "json" };
 const searchInput = document.querySelector(".searchInput");
 const input = searchInput.querySelector("input");
 const resultBox = searchInput.querySelector(".resultBox");
-const icon = searchInput.querySelector(".icon");
-let linkTag = searchInput.querySelector("a");
-let webLink;
 
 const allData = laLiga.concat(
   bundesliga,
@@ -157,12 +154,14 @@ function displayGuess(player, playerToGuess, playerTeam, playerTeamToGuess) {
     newdiv1.innerHTML = "#" + player.player_number;
     newdiv1.style.color = "green";
   } else {
-    if (parseInt(player.player_number) > parseInt(playerToGuess.player_number)) {
-        newdiv1.innerHTML = "#" + player.player_number + "⬇️";
-        newdiv1.style.color = "red";
+    if (
+      parseInt(player.player_number) > parseInt(playerToGuess.player_number)
+    ) {
+      newdiv1.innerHTML = "#" + player.player_number + "⬇️";
+      newdiv1.style.color = "red";
     } else {
-        newdiv1.innerHTML = "#" + player.player_number + "⬆️";
-        newdiv1.style.color = "red";
+      newdiv1.innerHTML = "#" + player.player_number + "⬆️";
+      newdiv1.style.color = "red";
     }
   }
 
@@ -171,11 +170,11 @@ function displayGuess(player, playerToGuess, playerTeam, playerTeamToGuess) {
     newdiv2.style.color = "green";
   } else {
     if (parseInt(player.player_age) > parseInt(playerToGuess.player_age)) {
-        newdiv2.innerHTML = player.player_age + "y" + "⬇️";
-        newdiv2.style.color = "red";
+      newdiv2.innerHTML = player.player_age + "y" + "⬇️";
+      newdiv2.style.color = "red";
     } else {
-        newdiv2.innerHTML = player.player_age + "y" + "⬆️";
-        newdiv2.style.color = "red";
+      newdiv2.innerHTML = player.player_age + "y" + "⬆️";
+      newdiv2.style.color = "red";
     }
   }
 
@@ -202,17 +201,17 @@ function displayGuess(player, playerToGuess, playerTeam, playerTeamToGuess) {
     newdiv5.innerHTML = playerTeam.team_name;
     newdiv5.style.color = "red";
   }
-  guessIndice.prepend(guessName,newdiv1, newdiv2, newdiv3, newdiv4, newdiv5);
+  guessIndice.prepend(guessName, newdiv1, newdiv2, newdiv3, newdiv4, newdiv5);
 }
 
 function win(playerToGuess) {
   let new_data = "<p>Congratulations, you found the player " +
-      playerToGuess.player_name + "</p>" +
-      "<img src='" + playerToGuess.player_image + "' alt='Sorry, no image avaible!'>";
+    playerToGuess.player_name + "</p>" +
+    "<img src='" + playerToGuess.player_image +
+    "' alt='Sorry, no image avaible!'>";
 
   let resultBox = document.querySelector(".map");
   resultBox.innerHTML = new_data;
-  
 }
 
 let button = document.querySelector(".reveal");
