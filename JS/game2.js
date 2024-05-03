@@ -17,7 +17,9 @@ const allData = laLiga.concat(
 );
 
 let [playerArray, playerPhoto] = loadData(allData);
+console.log(playerArray.length);
 let [result, photo] = randomPlayer();
+console.log(result, photo);
 startListener(photo);
 launchGame(result);
 
@@ -28,9 +30,15 @@ function randomPlayer() {
 }
 
 function isValide(player, playerTeam) {
-    return player.player_number === "" || player.player_age === "" ||
-    player.player_type === "" || playerTeam.team_country === "" ||
-    playerTeam.team_name === "" || player.player_image === "";
+    if (player.player_image === "" ) { 
+        console.log("pas de photot",player.player_name);
+        return false;
+    } else if(!/^[a-zàâçéèêëîïôûùüÿñ. -]+$/i.test(player.player_name)) {
+        console.log("nom invalide",player.player_name);
+        return false;
+    }
+    
+    return true;
 }
 
 function launchGame(result) {
@@ -63,6 +71,7 @@ function tryPlayer(playerToGuess, userInput, turn, circles) {
     document.querySelector(".player").style.display = "block";
     document.querySelector(".revealPhoto").style.display = "none"; 
     document.querySelector(".playagain").style.display = "block"; 
+    prompt("You won!");
     console.log("You won!");
     return;
   }
