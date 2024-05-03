@@ -1,9 +1,15 @@
 
-
+:root {
+    --red: #DF1B3F;
+    --bleu: #19204E;
+    --grey: #D6D6D6;
+    --yellow: #FCB300;
+}
 
 a, button{
     cursor: pointer;
 }
+
 
 nav{
     position: absolute;
@@ -24,8 +30,9 @@ nav{
     left: -500px;
     width: 350px;
     height: 100%;
-    background-color: #000;
+    background-color: #302a36;
     transition: .5s;
+    outline: 2px solid #000;
 }
 
 .nav ul li{
@@ -35,7 +42,7 @@ nav{
     list-style-type: none;
     font-size: 1.5em;
     padding: 30px 30px;
-    border-bottom: 1pt solid #252525;
+    border-bottom: 1pt solid #000;
 }
 
 .nav ul li a{
@@ -66,7 +73,7 @@ nav{
 
 .bar{
     top: 3px;
-    background: #000;
+    background: #fff;
     width: 100%;
     height: 4px;
     transition: all .3s ease-in;

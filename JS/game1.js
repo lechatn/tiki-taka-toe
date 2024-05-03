@@ -116,7 +116,7 @@ function testplayer(
     displayGuess(player, playerToGuess, playerTeam, playerTeamToGuess, turn);
   }
   turn++;
-  if (turn === 9) {
+  if (turn === 7) {
     let new_data = "<p>Game Over, the good player was " +
       playerToGuess.player_name + "</p>";
     resultBox.innerHTML = new_data;
@@ -144,7 +144,9 @@ function displayGuess(player, playerToGuess, playerTeam, playerTeamToGuess,indic
     let guessNamediv = document.querySelector(".name" + indice.toString());
     let guessIndice = document.querySelector(".guess-indice" + indice.toString());
     let playerDiv = document.createElement("div");
-  
+
+
+
     let guessName = document.createElement("div");
     guessName.innerHTML = player.player_name;
     guessNamediv.prepend(guessName);
@@ -229,14 +231,18 @@ function displayGuess(player, playerToGuess, playerTeam, playerTeamToGuess,indic
     
       if (playerTeam.team_name === playerTeamToGuess.team_name) {
         playerClub.innerHTML = "<img src='" + playerTeamToGuess.team_badge + "' alt='Sorry, no image avaible!'>";
+        playerClub.style.backgroundColor = "rgb(34, 197, 94)";
       } else {
         playerClub.innerHTML = "<img src='" + playerTeam.team_badge + "' alt='Sorry, no image avaible!'>";
         playerClub.style.backgroundColor = "rgba(58, 58, 58, 0.5)";
       }
+
     playerDiv.append(playerNumber, playerAge, playerPos, playerLeague, playerClub);
+
   
     guessIndice.prepend(playerDiv);
     playerDiv.className ="player-style";
+    guessNamediv.style.backgroundColor = "rgb(214, 214, 214, 0.5)";
 
   }
 
