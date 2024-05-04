@@ -11,6 +11,13 @@
     --yellow: rgb(252, 179, 0);
 }
 
+body {
+    background-image:url(../IMG/footBG.jpeg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    backdrop-filter: blur(5px);
+    }
+
 .title {
     text-align: center;
     margin-top: 10px;
@@ -73,6 +80,7 @@ p {
 .game-content {
     background-color: var(--bleu);
     width: 80%;
+    min-height: 80vh;
     margin: auto;
     padding: 20px;
     margin-top: 10px;

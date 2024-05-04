@@ -1,13 +1,26 @@
+:root {
+    --red: #DF1B3F;
+    --bleu: rgb(25, 32, 78);
+    --grey: #e2e2e2;
+    --yellow: rgb(252, 179, 0);
+}
+
+
 .circle, .circle2, .circle3, .circle4, .circle5, .circle6 {
     width: 50px;
     height: 50px;
-    border: 2px solid black;
+    border: 2px solid white;
+    outline: none;
+    background-color: rgb(15, 20, 52);
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
-    font-size: 14px;
+    font-size: 35px;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    text-transform: uppercase;
   }
 
 .box1, .box2, .box3, .box4, .box5, .box6{
@@ -15,9 +28,15 @@
     flex-direction: row;
     gap: 2px;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 15px;
 }
 
+.game2 {
+    width: 75%;
+    margin: auto;
+    border-radius: 20px;
+    border: 2px solid white;
+}
 
 .player{
     display: none;
@@ -27,4 +46,21 @@
 .playagain{
     display: none;
     justify-content: center;
+}
+
+.animated {
+    animation: flip 0.5s ease; 
+}
+
+@keyframes flip {
+    0% {
+        transform: scaleY(1);
+        
+    }
+    50% {
+        transform: scaleY(0);
+    }
+    100% {
+        transform: scaleY(1);
+    }
 }

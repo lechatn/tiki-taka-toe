@@ -7,13 +7,7 @@
   --yellow: rgba(255, 238, 3, 0.8);
 }
 
-body {
-background-image:url(../IMG/footBG.jpeg);
-background-size: cover;
-background-repeat: no-repeat;
-backdrop-filter: blur(5px);
 
-}
 
 ::selection{
   color: #fff;
@@ -175,7 +169,7 @@ backdrop-filter: blur(5px);
 
 .guessed-player {
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
 }
 
 .name1, .name2, .name3, .name4, .name5, .name6, .name7 {
