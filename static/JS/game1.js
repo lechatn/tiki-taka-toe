@@ -201,29 +201,29 @@ function displayGuess(player, playerToGuess, playerTeam, playerTeamToGuess,indic
     
       if (playerTeam.team_country === playerTeamToGuess.team_country) {
         if (playerTeam.team_country === "England") {
-            playerLeague.innerHTML = "<img src= ../IMG/PL-logo.png>";
+            playerLeague.innerHTML = "<img src= /IMG/PL-logo.png>";
         } else if (playerTeam.team_country === "Germany") {
-            playerLeague.innerHTML = "<img src= ../IMG/bundes-logo.png>";
+            playerLeague.innerHTML = "<img src= /IMG/bundes-logo.png>";
         } else if (playerTeam.team_country === "France") {
-            playerLeague.innerHTML = "<img src= ../IMG/ligue1-logo.png>";
+            playerLeague.innerHTML = "<img src= /IMG/ligue1-logo.png>";
         } else if (playerTeam.team_country === "Italy") {
-            playerLeague.innerHTML = "<img src= ../IMG/serieA-logo.png>";
+            playerLeague.innerHTML = "<img src= /IMG/serieA-logo.png>";
         } else if (playerTeam.team_country === "Spain") {
-            playerLeague.innerHTML = "<img src= ../IMG/liga-logo.png>";
+            playerLeague.innerHTML = "<img src= /IMG/liga-logo.jpg>";
         }
         playerLeague.style.backgroundColor = "rgb(34, 197, 94)";
 
       } else {
         if (playerTeam.team_country === "England") {
-            playerLeague.innerHTML = "<img src= ../IMG/PL-logo.png>";
+            playerLeague.innerHTML = "<img src= /IMG/PL-logo.png>";
         } else if (playerTeam.team_country === "Germany") {
-            playerLeague.innerHTML = "<img src= ../IMG/bundes-logo.png>";
+            playerLeague.innerHTML = "<img src= /IMG/bundes-logo.png>";
         } else if (playerTeam.team_country === "France") {
-            playerLeague.innerHTML = "<img src= ../IMG/ligue1-logo.png>";
+            playerLeague.innerHTML = "<img src= /IMG/ligue1-logo.png>";
         } else if (playerTeam.team_country === "Italy") {
-            playerLeague.innerHTML = "<img src= ../IMG/serieA-logo.png>";
+            playerLeague.innerHTML = "<img src= /IMG/serieA-logo.png>";
         } else if (playerTeam.team_country === "Spain") {
-            playerLeague.innerHTML = "<img src= ../IMG/liga-logo.png>";
+            playerLeague.innerHTML = "<img src= /IMG/liga-logo.jpg>";
         }
         playerLeague.style.backgroundColor = "rgba(58, 58, 58, 0.5)";
       }

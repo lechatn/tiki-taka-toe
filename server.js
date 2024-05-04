@@ -6,13 +6,14 @@ const express = require('express');
 const app = express();
 
 app.use(express.static("static"));
+app.use('/IMG', express.static('IMG'));
 
 const server = http.createServer((req, res,app) => {
     let reqUrl = url.parse(req.url);
     let fileName = '';
     let folderName = 'templates';
 
-    if (reqUrl.pathname.endsWith('.css') || reqUrl.pathname.endsWith('.js') || reqUrl.pathname.endsWith('.png') || reqUrl.pathname.endsWith('.jpeg') || reqUrl.pathname.endsWith('.json')){
+    if (reqUrl.pathname.endsWith('.css') || reqUrl.pathname.endsWith('.js') || reqUrl.pathname.endsWith('.png') || reqUrl.pathname.endsWith('.jpeg') || reqUrl.pathname.endsWith('.json') || reqUrl.pathname.endsWith('.jpg')){
         fileName = reqUrl.pathname;
         folderName = 'static';
     } else {
@@ -56,9 +57,11 @@ const server = http.createServer((req, res,app) => {
             } else if (fileName.endsWith('.png')) {
                 contentType = 'image/png';
             } else if (fileName.endsWith('.jpeg')) {
-                contentType = 'image/jpg';
+                contentType = 'image/jpeg';
             } else if (fileName.endsWith('.json')) {
                 contentType = 'application/json';
+            } else if (fileName.endsWith('.jpg')) {
+                contentType = 'image/jpg';
             }
             res.writeHead(200, {'Content-Type': contentType});
             res.end(data);
