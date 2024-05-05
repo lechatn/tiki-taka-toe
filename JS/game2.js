@@ -40,7 +40,7 @@ function launchGame(result) {
   let turn = 0;
   for (let i = 0; i < playerToGuess.length; i++) {
     if (i === 0) {
-        let new_data = `<input type="text" class="circle" maxlength="1" value="${playerToGuess[i]}" style="background-color: green;" readonly></input>`;        box1.innerHTML += new_data;
+        let new_data = `<input type="text" class="circle" maxlength="1" value="${playerToGuess[i]}" style="background-color: rgb(34, 197, 94);" readonly></input>`;        box1.innerHTML += new_data;
     } else if (i === 1) {
         let new_data = '<input type="text" class="circle" maxlength="1" autofocus></input>';
         box1.innerHTML += new_data;
@@ -55,9 +55,11 @@ function launchGame(result) {
 function tryPlayer(playerToGuess, userInput, turn, circles) {
   turn++;
   userInput.toLowerCase();
+
+  const animation_duration = 500;
   if (playerToGuess === userInput) {
     for (let circle of circles) {
-      circle.style.backgroundColor = "green";
+      circle.style.backgroundColor = "rgb(34, 197, 94)";
     }
     document.querySelector(".player").src = photo; 
     document.querySelector(".player").style.display = "block";
@@ -67,13 +69,17 @@ function tryPlayer(playerToGuess, userInput, turn, circles) {
     return;
   }
   for (let i = 0; i < playerToGuess.length; i++) {
-    if (playerToGuess[i] === userInput[i]) {
-      circles[i].style.backgroundColor = "green";
-    } else if (playerToGuess.includes(userInput[i])) {
-      circles[i].style.backgroundColor = "orange";
-    } else {
-      circles[i].style.backgroundColor = "red";
-    }
+    setTimeout(() => {
+      if (playerToGuess[i] === userInput[i]) {
+        circles[i].style.backgroundColor = "rgb(34, 197, 94)";
+      } else if (playerToGuess.includes(userInput[i])) {
+        circles[i].style.backgroundColor = "rgb(252, 179, 0)";
+      } else {
+        circles[i].style.backgroundColor = "rgb(15, 20, 52)";
+      }
+    }, ((i + 1) * animation_duration) / 2);
+    circles[i].classList.add("animated");
+    circles[i].style.animationDelay = `${(i * animation_duration) / 2}ms`;
     circles[i].disabled = true;
   }
   if (turn === 6) {
@@ -85,7 +91,7 @@ function tryPlayer(playerToGuess, userInput, turn, circles) {
   let box = document.querySelector(`.box${turn + 1}`);
     for (let i = 0; i < playerToGuess.length; i++) {
         let new_data = i === 0
-            ? `<input type="text" class="circle${turn + 1}" maxlength="1" value="${playerToGuess[i]}" style="background-color: green;" readonly></input>`
+            ? `<input type="text" class="circle${turn + 1}" maxlength="1" value="${playerToGuess[i]}" style="background-color: rgb(34, 197, 94);" readonly></input>`
             : `<input type="text" class="circle${turn + 1}" maxlength="1"></input>`;
         box.innerHTML += new_data;
 }
