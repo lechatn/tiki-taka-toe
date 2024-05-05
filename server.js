@@ -6,7 +6,7 @@ const express = require('express');
 const app = express();
 
 app.use(express.static("static"));
-app.use('/IMG', express.static('IMG'));
+app.use('/IMG', express.static('static/IMG'));
 
 const server = http.createServer((req, res,app) => {
     let reqUrl = url.parse(req.url);
@@ -44,7 +44,7 @@ const server = http.createServer((req, res,app) => {
 
     let filePath = path.join(__dirname, folderName, fileName);
 
-    fs.readFile(filePath, 'utf8', (err, data) => {
+    fs.readFile(filePath, (err, data) => {
         if (err) {
             res.writeHead(404);
             res.end(`Error: ${err}`);
@@ -56,15 +56,18 @@ const server = http.createServer((req, res,app) => {
                 contentType = 'text/javascript';
             } else if (fileName.endsWith('.png')) {
                 contentType = 'image/png';
+                data = new Buffer(data, 'binary');
             } else if (fileName.endsWith('.jpeg')) {
                 contentType = 'image/jpeg';
+                data = new Buffer(data, 'binary');
             } else if (fileName.endsWith('.json')) {
                 contentType = 'application/json';
             } else if (fileName.endsWith('.jpg')) {
                 contentType = 'image/jpg';
+                data = new Buffer(data, 'binary');
             }
             res.writeHead(200, {'Content-Type': contentType});
-            res.end(data);
+            res.end(data, 'binary');
         }
     });
 });

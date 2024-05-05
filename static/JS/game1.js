@@ -168,6 +168,7 @@ function displayGuess(player, playerToGuess, playerTeam, playerTeamToGuess,indic
     if (player.player_number === playerToGuess.player_number) {
         playerNumber.innerHTML = "#" + player.player_number;
         playerNumber.style.backgroundColor = "rgb(34, 197, 94)";
+
       } else {
         if (parseInt(player.player_number) > parseInt(playerToGuess.player_number)) {
             playerNumber.innerHTML = "#" + player.player_number + "⬇️";
@@ -254,6 +255,9 @@ function win(playerToGuess) {
 
   let resultBox = document.querySelector(".map");
   resultBox.innerHTML = new_data;
+
+  document.querySelector(".playagain").style.display = "block"; 
+
 }
 
 let button = document.querySelector(".reveal");
@@ -262,4 +266,11 @@ button.addEventListener("click", () => {
   image.src = playerTeamToGuess.team_badge;
   image.style.display = "flex";
   button.style.display = "none";
+  
 });
+
+let button2 = document.querySelector(".playagain");
+button2.addEventListener("click", () => {
+    window.location.reload();
+}
+);
