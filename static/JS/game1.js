@@ -8,7 +8,7 @@ const searchInput = document.querySelector(".searchInput");
 const input = searchInput.querySelector("input");
 const resultBox = searchInput.querySelector(".resultBox");
 
-const allData = laLiga.concat(
+const allData = laLiga.concat( // Concatenate all the data in one array
   bundesliga,
   premierLeague,
   ligue1,
@@ -17,7 +17,7 @@ const allData = laLiga.concat(
 
 let playerArray = [];
 
-for (let j = 0; j < allData.length; j++) {
+for (let j = 0; j < allData.length; j++) { // Load all the players in the playerArray
   for (let i = 0; i < allData[j].players.length; i++) {
     if (playerArray.includes(allData[j].players[i])) {
       continue;
@@ -27,33 +27,27 @@ for (let j = 0; j < allData.length; j++) {
   }
 }
 
-let result = randomPlayer();
+let result = randomPlayer(); // Choose a random player
 let playerToGuess = result.player;
 let playerTeamToGuess = result.team;
 let turn = 0;
 
-console.log(playerToGuess);
-
-// if user press any key and release
 input.onkeyup = (e) => {
-  let userData = e.target.value; //user enetered data
+  let userData = e.target.value; 
   let emptyArray = [];
-  if (userData) {
+  if (userData) { // Check if the user has entered something
     emptyArray = playerArray.filter((data) => {
-      //filtering array value and user characters to lowercase and return only those words which are start with user enetered chars
       return data.toLocaleLowerCase().includes(userData.toLocaleLowerCase());
     });
     emptyArray = emptyArray.map((data) => {
-      // passing return data inside li tag
       return data = "<li>" + data + "</li>";
     });
-    searchInput.classList.add("active"); //show autocomplete box
-    showSuggestions(emptyArray);
+    searchInput.classList.add("active");
+    showSuggestions(emptyArray); // Display the results of the search
     let allList = resultBox.querySelectorAll("li");
     for (let i = 0; i < allList.length; i++) {
-      //adding onclick attribute in all li tag
-      allList[i].addEventListener("click", function () {
-        input.value = this.innerText;
+      allList[i].addEventListener("click", function () { // Add an event listener on each result
+        input.value = this.innerText; // Add the result in the input
         searchInput.classList.remove("active");
         let playerTeam = allData.find((x) =>
           x.players.some((y) => y.player_name === input.value)
@@ -61,9 +55,7 @@ input.onkeyup = (e) => {
         let player = playerTeam.players.find((x) =>
           x.player_name === input.value
         );
-        console.log(player);
-        console.log(playerTeam);
-        turn = testplayer(
+        turn = testplayer( // Test the player
           player,
           playerTeam,
           playerToGuess,
@@ -77,7 +69,7 @@ input.onkeyup = (e) => {
   }
 };
 
-function showSuggestions(list) {
+function showSuggestions(list) { // Display the results of the search
   let listData;
   if (!list.length) {
     userValue = inputBox.value;
@@ -85,10 +77,10 @@ function showSuggestions(list) {
   } else {
     listData = list.join("");
   }
-  resultBox.innerHTML = listData;
+  resultBox.innerHTML = listData; 
 }
 
-function randomPlayer() {
+function randomPlayer() { // Choose a random player
   let randomPlayer =
     playerArray[Math.floor(Math.random() * playerArray.length)];
   let team = allData.find((x) =>
@@ -109,26 +101,25 @@ function testplayer(
   console.log(playerToGuess);
   let resultBox = document.querySelector(".map");
 
-  if (player.player_name === playerToGuess.player_name) {
+  if (player.player_name === playerToGuess.player_name) { // If the player is the good one
     displayGuess(player, playerToGuess, playerTeam, playerTeamToGuess, turn);
-    win(playerToGuess);
+    win(playerToGuess); // Start the win function
   } else {
-    displayGuess(player, playerToGuess, playerTeam, playerTeamToGuess, turn);
+    displayGuess(player, playerToGuess, playerTeam, playerTeamToGuess, turn); // Display the player
   }
   turn++;
-  if (turn === 7) {
+  if (turn === 7) { // If the user has made 7 turns, the game is over
     let new_data = "<p>Game Over, the good player was " +
       playerToGuess.player_name + "</p>";
     resultBox.innerHTML = new_data;
-  } else if (turn === 4) {
+  } else if (turn === 4) { // If the user has made 4 turns, we display the button to reveal the player if he wants to have a clue
     document.querySelector(".reveal").style.display = "flex";
   }
-  console.log(turn);
   return turn;
 }
 
-function isValide(player, playerTeam) {
-  if (
+function isValide(player, playerTeam) { // Check if the player is valid
+  if ( // We take only the players with a number, an age, a type, a team country, a team name and an image
     player.player_number === "" || player.player_age === "" ||
     player.player_type === "" || playerTeam.team_country === "" ||
     playerTeam.team_name === "" || player.player_image === ""
@@ -167,35 +158,35 @@ function displayGuess(
   playerLeague.className = "player-league";
   playerClub.className = "player-club";
 
-  if (player.player_number === playerToGuess.player_number) {
+  if (player.player_number === playerToGuess.player_number) { // Check if the player number is the good one
     playerNumber.innerHTML = "#" + player.player_number;
-    playerNumber.style.backgroundColor = "rgb(34, 197, 94)";
+    playerNumber.style.backgroundColor = "rgb(34, 197, 94)"; // Change the color of the div to green
   } else {
     if (
       parseInt(player.player_number) > parseInt(playerToGuess.player_number)
     ) {
-      playerNumber.innerHTML = "#" + player.player_number + "⬇️";
+      playerNumber.innerHTML = "#" + player.player_number + "⬇️"; // Add an arrow to indicate if the number is higher or lower
       playerNumber.style.backgroundColor = "rgba(58, 58, 58, 0.5)";
     } else {
-      playerNumber.innerHTML = "#" + player.player_number + "⬆️";
+      playerNumber.innerHTML = "#" + player.player_number + "⬆️"; // Add an arrow to indicate if the number is higher or lower
       playerNumber.style.backgroundColor = "rgba(58, 58, 58, 0.5)";
     }
   }
 
-  if (player.player_age === playerToGuess.player_age) {
+  if (player.player_age === playerToGuess.player_age) { // Check if the player age is the good one
     playerAge.innerHTML = player.player_age + "y";
     playerAge.style.backgroundColor = "rgb(34, 197, 94)";
   } else {
     if (parseInt(player.player_age) > parseInt(playerToGuess.player_age)) {
-      playerAge.innerHTML = player.player_age + "y" + "⬇️";
+      playerAge.innerHTML = player.player_age + "y" + "⬇️"; // Add an arrow to indicate if the age is higher or lower
       playerAge.style.backgroundColor = "rgba(58, 58, 58, 0.5)";
     } else {
-      playerAge.innerHTML = player.player_age + "y" + "⬆️";
+      playerAge.innerHTML = player.player_age + "y" + "⬆️"; // Add an arrow to indicate if the age is higher or lower
       playerAge.style.backgroundColor = "rgba(58, 58, 58, 0.5)";
     }
   }
 
-  if (player.player_type === playerToGuess.player_type) {
+  if (player.player_type === playerToGuess.player_type) { // Check if the player type is the good one
     playerPos.innerHTML = player.player_type;
     playerPos.style.backgroundColor = "rgb(34, 197, 94)";
   } else {
@@ -203,9 +194,9 @@ function displayGuess(
     playerPos.style.backgroundColor = "rgba(58, 58, 58, 0.5)";
   }
 
-  if (playerTeam.team_country === playerTeamToGuess.team_country) {
+  if (playerTeam.team_country === playerTeamToGuess.team_country) { // Check if the team country is the good one
     if (playerTeam.team_country === "England") {
-      playerLeague.innerHTML = "<img src= /IMG/PL-logo.png>";
+      playerLeague.innerHTML = "<img src= /IMG/PL-logo.png>"; // Display the league logo
     } else if (playerTeam.team_country === "Germany") {
       playerLeague.innerHTML = "<img src= /IMG/bundes-logo.png>";
     } else if (playerTeam.team_country === "France") {
@@ -231,10 +222,10 @@ function displayGuess(
     playerLeague.style.backgroundColor = "rgba(58, 58, 58, 0.5)";
   }
 
-  if (playerTeam.team_name === playerTeamToGuess.team_name) {
+  if (playerTeam.team_name === playerTeamToGuess.team_name) { // Check if the team name is the good one
     playerClub.innerHTML = "<img src='" + playerTeamToGuess.team_badge +
       "' alt='Sorry, no image avaible!'>";
-    playerClub.style.backgroundColor = "rgb(34, 197, 94)";
+    playerClub.style.backgroundColor = "rgb(34, 197, 94)"; 
   } else {
     playerClub.innerHTML = "<img src='" + playerTeam.team_badge +
       "' alt='Sorry, no image avaible!'>";
@@ -255,11 +246,11 @@ function displayGuess(
   guessNamediv.style.backgroundColor = "rgb(214, 214, 214, 0.5)";
 }
 
-function win(playerToGuess) {
+function win(playerToGuess) { // Function win when the user has found the player
   let new_data = "<p>Congratulations, you found the player " +
     playerToGuess.player_name + "</p>" +
-    "<img src='" + playerToGuess.player_image +
-    "' alt='Sorry, no image avaible!'>";
+    "<img src='" + playerToGuess.player_image + 
+    "' alt='Sorry, no image avaible!'>"; // Display the player image
 
   let resultBox = document.querySelector(".map");
   resultBox.innerHTML = new_data;
