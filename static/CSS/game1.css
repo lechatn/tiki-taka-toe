@@ -92,6 +92,7 @@
   line-height: 55px;
   font-size: 20px;
   cursor: pointer;
+  z-index: 10;
 }
 
 .main {

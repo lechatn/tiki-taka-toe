@@ -45,6 +45,7 @@
     <header>
         <a class="title"></a>
         <section class="button-connection">
+            <a href="#rules" onclick="togglePopup2()">Rules</a>
             <a href="#login" onclick="togglePopup()">Login</a>
             <a href="signup.html">Sign Up</a>
         </section>
@@ -81,6 +82,23 @@
                         close
                     </i>
                 </a>
+            </form>
+        </div>
+        <div id="wrapper2">
+            <form action="">
+                <h1>Rules</h1>
+                <a href="javascript:void(0)" onclick="togglePopup2()" class="popup-exit">
+                    <i class="material-icons">
+                        close
+                    </i>
+                </a>
+                <p>Find the player's name</p>
+                <p>If you find the letter, she will be displayed in green</p>
+                <p>If you find the letter but it is not in the right place, she will be displayed in orange</p>
+                <p>After 2 rounds, you can delock a clue</p>
+                <p>You have 6 attempts</p>
+                <p>Good luck !</p>
+
             </form>
         </div>
         <div class="game-content">

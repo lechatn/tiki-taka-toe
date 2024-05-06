@@ -15,6 +15,7 @@ const allData = laLiga.concat( // Concatenate all the data in one array
   serieA,
 );
 
+
 let playerArray = [];
 
 for (let j = 0; j < allData.length; j++) { // Load all the players in the playerArray
@@ -112,6 +113,7 @@ function testplayer(
     let new_data = "<p>Game Over, the good player was " +
       playerToGuess.player_name + "</p>";
     resultBox.innerHTML = new_data;
+    document.querySelector(".playagain").style.display = "block";
   } else if (turn === 4) { // If the user has made 4 turns, we display the button to reveal the player if he wants to have a clue
     document.querySelector(".reveal").style.display = "flex";
   }

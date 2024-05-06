@@ -1,5 +1,5 @@
 
-#wrapper {
+#wrapper, #wrapper2{
     display: none;
     position: absolute;
     top: 35%;
@@ -18,13 +18,13 @@
 }  
 
 
-#wrapper h1 {
+#wrapper h1, #wrapper2 h1 {
     font-size: 3rem;
     text-align: center;
 }
 
 
-#wrapper.open {
+#wrapper.open, #wrapper2.open {
     display: block;
 }
 
