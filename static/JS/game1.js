@@ -241,15 +241,19 @@ function displayGuess(
     playerClub.style.backgroundColor = "rgba(58, 58, 58, 0.5)";
   }
 
-    playerDiv.append(playerNumber, playerAge, playerPos, playerLeague, playerClub);
-    document.querySelector(".name" + indice.toString()).style.display = "block";
+  playerDiv.append(
+    playerNumber,
+    playerAge,
+    playerPos,
+    playerLeague,
+    playerClub,
+  );
+  document.querySelector(".name" + indice.toString()).style.display = "block";
 
-  
-    guessIndice.prepend(playerDiv);
-    playerDiv.className ="player-style";
-    guessNamediv.style.backgroundColor = "rgb(214, 214, 214, 0.5)";
-
-  }
+  guessIndice.prepend(playerDiv);
+  playerDiv.className = "player-style";
+  guessNamediv.style.backgroundColor = "rgb(214, 214, 214, 0.5)";
+}
 
 function win(playerToGuess) {
   let new_data = "<p>Congratulations, you found the player " +
