@@ -74,6 +74,7 @@ app.post('/signup', async (req, res) => {
         }
 
         req.session.user = result;
+        req.session.email = email;
 
         res.json({ status: 'success', message: 'User registered successfully' });
     } catch (error) {
@@ -117,10 +118,8 @@ app.get('/is-logged-in', (req, res) => {
 
     if (req.session.user) {
         res.json({ isLoggedIn: true });
-        console.log('is-logged-in')
     } else {
         res.json({ isLoggedIn: false });
-        console.log('is-not-logged-in')
     }
 });
 

@@ -275,7 +275,6 @@ function win(playerToGuess) { // Function win when the user has found the player
 
   // Increment the win count
   getUserEmail().then(email => {
-    console.log(email);
     incrementWin("whoAreYaWin", email);
   });
 }
