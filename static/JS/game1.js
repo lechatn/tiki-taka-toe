@@ -73,7 +73,7 @@ input.onkeyup = (e) => {
       });
     }
   } else {
-    searchInput.classList.remove("active"); //hide autocomplete box
+    searchInput.classList.remove("active");
   }
 };
 
@@ -239,6 +239,7 @@ function displayGuess(player, playerToGuess, playerTeam, playerTeamToGuess,indic
       }
 
     playerDiv.append(playerNumber, playerAge, playerPos, playerLeague, playerClub);
+    document.querySelector(".name" + indice.toString()).style.display = "block";
 
   
     guessIndice.prepend(playerDiv);

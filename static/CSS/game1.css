@@ -173,6 +173,7 @@
 }
 
 .name1, .name2, .name3, .name4, .name5, .name6, .name7 {
+  display: none;
   margin: auto;
   width: 550px;
   padding: 10px;
@@ -211,5 +212,10 @@ img {
   height: 35px;
 }
 
-
-
+.player-image {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+}

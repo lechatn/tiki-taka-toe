@@ -33,6 +33,8 @@ nav{
     background-color: #302a36;
     transition: .5s;
     outline: 2px solid #000;
+    z-index: 1000;
+
 }
 
 .nav ul li{

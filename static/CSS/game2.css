@@ -90,6 +90,9 @@
 }
 
 .reveal-content img {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 50%;
     width: 100px;
     height: 100px;
   }
