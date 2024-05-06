@@ -1,0 +1,119 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
+}
+
+:root {
+    --red: #DF1B3F;
+    --bleu: rgb(25, 32, 78, 0.95);
+    --grey: #e2e2e2;
+    --yellow: rgb(252, 179, 0);
+}
+
+body {
+    background-image:url(/IMG/footBG.jpeg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    backdrop-filter: blur(5px);
+    }
+
+.title {
+    text-align: center;
+    margin-top: 10px;
+    color: #000000;
+    font-size: 2rem;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(25, 32, 78);
+    padding: 15px 0;
+}
+
+h1 {
+    text-align: center;
+    font-size: 2rem;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    color: #ffffff;
+}
+
+p {
+    text-align: center;
+    color: #ffffff;
+    margin-top: 20px;
+}
+
+
+
+.button-connection {
+    right: 2%;
+    margin-top: 10px;
+    display: flex;
+    position: relative;
+    align-items: center;
+    gap: 20px;
+}
+
+.button-connection a {
+    text-decoration: none;
+    color: #000000;
+    background-color: #ffffff;
+    padding: 10px 30px;
+    border-radius: 20px;
+    font-size: 1rem;
+}
+
+.button-connection a:hover {
+    background-color: var(--bleu);
+    color: #ffffff;
+    outline: #ffffff solid 2px;
+}
+
+.container {
+    display: none;
+}
+
+.game-content {
+    background-color: var(--bleu);
+    width: 80%;
+    min-height: 80vh;
+    margin: auto;
+    padding: 20px;
+    margin-top: 10px;
+    border-radius: 20px;
+}
+
+.retry  {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.playagain {
+    margin-top: 30px;
+    background-color: var(--red); 
+    border: none;
+    display: none;
+    border-radius: 10px;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+  }
+
+.playagain:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+  }
+
+
+
+
+
