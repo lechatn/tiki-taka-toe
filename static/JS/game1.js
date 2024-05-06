@@ -63,6 +63,8 @@ input.onkeyup = (e) => {
           playerTeamToGuess,
           turn,
         );
+        input.value = ""; // Clear the search bar
+        input.focus(); // Focus on the search bar
       });
     }
   } else {
