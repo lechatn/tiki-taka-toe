@@ -120,6 +120,7 @@ function testplayer(
     let new_data = "<p>Game Over, the good player was " +
       playerToGuess.player_name + "</p>";
     resultBox.innerHTML = new_data;
+    document.querySelector(".playagain").style.display = "block";
   } else if (turn === 4) {
     document.querySelector(".reveal").style.display = "flex";
   }
@@ -256,9 +257,14 @@ function win(playerToGuess) {
 
   let resultBox = document.querySelector(".map");
   resultBox.innerHTML = new_data;
-
+  
   document.querySelector(".playagain").style.display = "block"; 
 
+  let image = resultBox.querySelector("img");
+  image.style.borderRadius = "50%";
+  image.style.width = "100px";
+  image.style.height = "100px";
+  image.style.marginTop = "10px";
 }
 
 let button = document.querySelector(".reveal");
