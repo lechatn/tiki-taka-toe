@@ -10,12 +10,16 @@ a, button{
     cursor: pointer;
 }
 
+html, body {
+    height: 100%;
+}
 
 nav{
     position: absolute;
     top: 100px;
     left: 50px;
     width: 250px;
+    height: 100%;
 }
 
 .nav h1{

@@ -258,8 +258,14 @@ function win(playerToGuess) { // Function win when the user has found the player
 
   let resultBox = document.querySelector(".map");
   resultBox.innerHTML = new_data;
+  
+  document.querySelector(".playagain").style.display = "block"; 
 
-  document.querySelector(".playagain").style.display = "block";
+  let image = resultBox.querySelector("img");
+  image.style.borderRadius = "50%";
+  image.style.width = "100px";
+  image.style.height = "100px";
+  image.style.marginTop = "10px";
 }
 
 let button = document.querySelector(".reveal");

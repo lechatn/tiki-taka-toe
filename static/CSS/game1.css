@@ -208,12 +208,20 @@
   overflow: hidden;
 }
 
-img {
+.guessed-player img {
   width: 35px;
   height: 35px;
 }
 
 .player-image {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+}
+
+.result-game img {
   margin-top: 20px;
   margin-bottom: 20px;
   border-radius: 50%;
