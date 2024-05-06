@@ -19,6 +19,7 @@ const allData = laLiga.concat(
 );
 
 let [playerArray, playerPhoto] = loadData(allData);
+console.log("playerArray: ", playerArray);
 let [result, photo] = randomPlayer();
 startListener(photo);
 launchGame(result);
@@ -30,9 +31,14 @@ function randomPlayer() {
 }
 
 function isValide(player, playerTeam) {
-    return player.player_number === "" || player.player_age === "" ||
-    player.player_type === "" || playerTeam.team_country === "" ||
-    playerTeam.team_name === "" || player.player_image === "";
+  if (player.player_image === "" ) { 
+    return false;
+} else if(!/^[a-zàâçéèêëîïôûùüÿñ]+$/i.test(player.player_name.substring(3))) {
+    return false;
+} else if (player.player_name.length >= 11) {
+    return false;
+}
+  return true;
 }
 
 function launchGame(result) {
@@ -57,18 +63,11 @@ function launchGame(result) {
 function tryPlayer(playerToGuess, userInput, turn, circles) {
   turn++;
   userInput.toLowerCase();
+  let find = false;
 
   const animation_duration = 500;
   if (playerToGuess === userInput) {
-    for (let circle of circles) {
-      circle.style.backgroundColor = "rgb(34, 197, 94)";
-    }
-    document.querySelector(".player").src = photo; 
-    document.querySelector(".player").style.display = "block";
-    document.querySelector(".revealPhoto").style.display = "none"; 
-    document.querySelector(".playagain").style.display = "block"; 
-    console.log("You won!");
-    return;
+    find = true;
   }
   for (let i = 0; i < playerToGuess.length; i++) {
     setTimeout(() => {
@@ -97,7 +96,16 @@ function tryPlayer(playerToGuess, userInput, turn, circles) {
             : `<input type="text" class="circle${turn + 1}" maxlength="1"></input>`;
         box.innerHTML += new_data;
 }
-  playGame(playerToGuess, userInput, turn);
+if(find) {
+  document.querySelector(`.box${turn+1}`).style.display = "none";
+  document.querySelector(".player").src = photo; 
+  document.querySelector(".player").style.display = "block";
+  document.querySelector(".revealPhoto").style.display = "none"; 
+  document.querySelector(".playagain").style.display = "block"; 
+  return;
+}
+
+playGame(playerToGuess, userInput, turn);
 }
 
 function playGame(playerToGuess, userInput, turn) {
