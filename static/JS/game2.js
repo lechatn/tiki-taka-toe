@@ -83,9 +83,10 @@ function tryPlayer(playerToGuess, userInput, turn, circles) {
     circles[i].style.animationDelay = `${(i * animation_duration) / 2}ms`;
     circles[i].disabled = true;
   }
-  if (turn === 3) {
-    document.querySelector(".revealPhoto").style.display = "block";
-  }
+
+if (turn === 3) {
+  document.querySelector(".revealPhoto").style.display = "block";
+}
   if (turn === 6) { // If the user has made 6 tries, the game is over
     document.querySelector(".player").src = photo;
     document.querySelector(".player").style.display = "block"; // Display the player photo
