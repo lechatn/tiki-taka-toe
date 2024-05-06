@@ -138,105 +138,108 @@ function isValide(player, playerTeam) {
   return true;
 }
 
-function displayGuess(player, playerToGuess, playerTeam, playerTeamToGuess,indice) {
-    indice = indice + 1;
+function displayGuess(
+  player,
+  playerToGuess,
+  playerTeam,
+  playerTeamToGuess,
+  indice,
+) {
+  indice = indice + 1;
 
-    let guessNamediv = document.querySelector(".name" + indice.toString());
-    let guessIndice = document.querySelector(".guess-indice" + indice.toString());
-    let playerDiv = document.createElement("div");
+  let guessNamediv = document.querySelector(".name" + indice.toString());
+  let guessIndice = document.querySelector(".guess-indice" + indice.toString());
+  let playerDiv = document.createElement("div");
 
+  let guessName = document.createElement("div");
+  guessName.innerHTML = player.player_name;
+  guessNamediv.prepend(guessName);
 
+  let playerNumber = document.createElement("div");
+  let playerAge = document.createElement("div");
+  let playerPos = document.createElement("div");
+  let playerLeague = document.createElement("div");
+  let playerClub = document.createElement("div");
 
-    let guessName = document.createElement("div");
-    guessName.innerHTML = player.player_name;
-    guessNamediv.prepend(guessName);
+  playerNumber.className = "player-number";
+  playerAge.className = "player-age";
+  playerPos.className = "player-pos";
+  playerLeague.className = "player-league";
+  playerClub.className = "player-club";
 
-    
-  
-    let playerNumber = document.createElement("div");
-    let playerAge = document.createElement("div");
-    let playerPos = document.createElement("div");
-    let playerLeague = document.createElement("div");
-    let playerClub = document.createElement("div");
+  if (player.player_number === playerToGuess.player_number) {
+    playerNumber.innerHTML = "#" + player.player_number;
+    playerNumber.style.backgroundColor = "rgb(34, 197, 94)";
+  } else {
+    if (
+      parseInt(player.player_number) > parseInt(playerToGuess.player_number)
+    ) {
+      playerNumber.innerHTML = "#" + player.player_number + "⬇️";
+      playerNumber.style.backgroundColor = "rgba(58, 58, 58, 0.5)";
+    } else {
+      playerNumber.innerHTML = "#" + player.player_number + "⬆️";
+      playerNumber.style.backgroundColor = "rgba(58, 58, 58, 0.5)";
+    }
+  }
 
-    playerNumber.className = "player-number";
-    playerAge.className = "player-age";
-    playerPos.className = "player-pos";
-    playerLeague.className = "player-league";
-    playerClub.className = "player-club";
-  
-    if (player.player_number === playerToGuess.player_number) {
-        playerNumber.innerHTML = "#" + player.player_number;
-        playerNumber.style.backgroundColor = "rgb(34, 197, 94)";
+  if (player.player_age === playerToGuess.player_age) {
+    playerAge.innerHTML = player.player_age + "y";
+    playerAge.style.backgroundColor = "rgb(34, 197, 94)";
+  } else {
+    if (parseInt(player.player_age) > parseInt(playerToGuess.player_age)) {
+      playerAge.innerHTML = player.player_age + "y" + "⬇️";
+      playerAge.style.backgroundColor = "rgba(58, 58, 58, 0.5)";
+    } else {
+      playerAge.innerHTML = player.player_age + "y" + "⬆️";
+      playerAge.style.backgroundColor = "rgba(58, 58, 58, 0.5)";
+    }
+  }
 
-      } else {
-        if (parseInt(player.player_number) > parseInt(playerToGuess.player_number)) {
-            playerNumber.innerHTML = "#" + player.player_number + "⬇️";
-            playerNumber.style.backgroundColor = "rgba(58, 58, 58, 0.5)";
-        } else {
-            playerNumber.innerHTML = "#" + player.player_number + "⬆️";
-            playerNumber.style.backgroundColor = "rgba(58, 58, 58, 0.5)";
-        }
-      }
-    
-      if (player.player_age === playerToGuess.player_age) {
-        playerAge.innerHTML = player.player_age + "y";
-        playerAge.style.backgroundColor = "rgb(34, 197, 94)";
-      } else {
-        if (parseInt(player.player_age) > parseInt(playerToGuess.player_age)) {
-            playerAge.innerHTML = player.player_age + "y" + "⬇️";
-            playerAge.style.backgroundColor = "rgba(58, 58, 58, 0.5)";
-        } else {
-            playerAge.innerHTML = player.player_age + "y" + "⬆️";
-            playerAge.style.backgroundColor = "rgba(58, 58, 58, 0.5)";
-        }
-      }
-    
-      if (player.player_type === playerToGuess.player_type) {
-        playerPos.innerHTML = player.player_type;
-        playerPos.style.backgroundColor = "rgb(34, 197, 94)";
-      } else {
-        playerPos.innerHTML = player.player_type;
-        playerPos.style.backgroundColor = "rgba(58, 58, 58, 0.5)";
-      }
-    
-      if (playerTeam.team_country === playerTeamToGuess.team_country) {
-        if (playerTeam.team_country === "England") {
-            playerLeague.innerHTML = "<img src= /IMG/PL-logo.png>";
-        } else if (playerTeam.team_country === "Germany") {
-            playerLeague.innerHTML = "<img src= /IMG/bundes-logo.png>";
-        } else if (playerTeam.team_country === "France") {
-            playerLeague.innerHTML = "<img src= /IMG/ligue1-logo.png>";
-        } else if (playerTeam.team_country === "Italy") {
-            playerLeague.innerHTML = "<img src= /IMG/serieA-logo.png>";
-        } else if (playerTeam.team_country === "Spain") {
-            playerLeague.innerHTML = "<img src= /IMG/liga-logo.jpg>";
-        }
-        playerLeague.style.backgroundColor = "rgb(34, 197, 94)";
+  if (player.player_type === playerToGuess.player_type) {
+    playerPos.innerHTML = player.player_type;
+    playerPos.style.backgroundColor = "rgb(34, 197, 94)";
+  } else {
+    playerPos.innerHTML = player.player_type;
+    playerPos.style.backgroundColor = "rgba(58, 58, 58, 0.5)";
+  }
 
-      } else {
-        if (playerTeam.team_country === "England") {
-            playerLeague.innerHTML = "<img src= /IMG/PL-logo.png>";
-        } else if (playerTeam.team_country === "Germany") {
-            playerLeague.innerHTML = "<img src= /IMG/bundes-logo.png>";
-        } else if (playerTeam.team_country === "France") {
-            playerLeague.innerHTML = "<img src= /IMG/ligue1-logo.png>";
-        } else if (playerTeam.team_country === "Italy") {
-            playerLeague.innerHTML = "<img src= /IMG/serieA-logo.png>";
-        } else if (playerTeam.team_country === "Spain") {
-            playerLeague.innerHTML = "<img src= /IMG/liga-logo.jpg>";
-        }
-        playerLeague.style.backgroundColor = "rgba(58, 58, 58, 0.5)";
-      }
+  if (playerTeam.team_country === playerTeamToGuess.team_country) {
+    if (playerTeam.team_country === "England") {
+      playerLeague.innerHTML = "<img src= /IMG/PL-logo.png>";
+    } else if (playerTeam.team_country === "Germany") {
+      playerLeague.innerHTML = "<img src= /IMG/bundes-logo.png>";
+    } else if (playerTeam.team_country === "France") {
+      playerLeague.innerHTML = "<img src= /IMG/ligue1-logo.png>";
+    } else if (playerTeam.team_country === "Italy") {
+      playerLeague.innerHTML = "<img src= /IMG/serieA-logo.png>";
+    } else if (playerTeam.team_country === "Spain") {
+      playerLeague.innerHTML = "<img src= /IMG/liga-logo.jpg>";
+    }
+    playerLeague.style.backgroundColor = "rgb(34, 197, 94)";
+  } else {
+    if (playerTeam.team_country === "England") {
+      playerLeague.innerHTML = "<img src= /IMG/PL-logo.png>";
+    } else if (playerTeam.team_country === "Germany") {
+      playerLeague.innerHTML = "<img src= /IMG/bundes-logo.png>";
+    } else if (playerTeam.team_country === "France") {
+      playerLeague.innerHTML = "<img src= /IMG/ligue1-logo.png>";
+    } else if (playerTeam.team_country === "Italy") {
+      playerLeague.innerHTML = "<img src= /IMG/serieA-logo.png>";
+    } else if (playerTeam.team_country === "Spain") {
+      playerLeague.innerHTML = "<img src= /IMG/liga-logo.jpg>";
+    }
+    playerLeague.style.backgroundColor = "rgba(58, 58, 58, 0.5)";
+  }
 
-    
-      if (playerTeam.team_name === playerTeamToGuess.team_name) {
-        playerClub.innerHTML = "<img src='" + playerTeamToGuess.team_badge + "' alt='Sorry, no image avaible!'>";
-        playerClub.style.backgroundColor = "rgb(34, 197, 94)";
-      } else {
-        playerClub.innerHTML = "<img src='" + playerTeam.team_badge + "' alt='Sorry, no image avaible!'>";
-        playerClub.style.backgroundColor = "rgba(58, 58, 58, 0.5)";
-      }
+  if (playerTeam.team_name === playerTeamToGuess.team_name) {
+    playerClub.innerHTML = "<img src='" + playerTeamToGuess.team_badge +
+      "' alt='Sorry, no image avaible!'>";
+    playerClub.style.backgroundColor = "rgb(34, 197, 94)";
+  } else {
+    playerClub.innerHTML = "<img src='" + playerTeam.team_badge +
+      "' alt='Sorry, no image avaible!'>";
+    playerClub.style.backgroundColor = "rgba(58, 58, 58, 0.5)";
+  }
 
     playerDiv.append(playerNumber, playerAge, playerPos, playerLeague, playerClub);
     document.querySelector(".name" + indice.toString()).style.display = "block";
@@ -257,8 +260,7 @@ function win(playerToGuess) {
   let resultBox = document.querySelector(".map");
   resultBox.innerHTML = new_data;
 
-  document.querySelector(".playagain").style.display = "block"; 
-
+  document.querySelector(".playagain").style.display = "block";
 }
 
 let button = document.querySelector(".reveal");
@@ -267,11 +269,9 @@ button.addEventListener("click", () => {
   image.src = playerTeamToGuess.team_badge;
   image.style.display = "flex";
   button.style.display = "none";
-  
 });
 
 let button2 = document.querySelector(".playagain");
 button2.addEventListener("click", () => {
-    window.location.reload();
-}
-);
+  window.location.reload();
+});

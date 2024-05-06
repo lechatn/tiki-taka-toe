@@ -2,28 +2,14 @@
 
 # Fonctionalités principales :
 
-# - Jeu de morpion orienté football
+# - Site avec plusieurs minijeux liés au football
 
-# - Trois lignes, trois colonnes, chaque ligne et colonnes a d'attribué un club ou une nationalité. Il faut ensuite retrouver les joueurs qui correspondent
+# - Premier jeu : Trouver le nom d un joueur. Des indices sont donnés au fil de la partie tel que le numéro du joueur, son age, son club,
 
-# aux deux critères demandés. Le jeu se déroule ensuite commme un morpion classique.
+# la ligue ou il joue, ...
 
-# - Jeu sur un seul écran à deux (possibilité de passer sur deux écrans)
+# - Deuxieme jeu : Jeu de motus avec le nom des joueurs.
 
-# - Essai1 :
+# - Troisième : Créer une equipe de foot en respectant une condition donnée (equipe la plus jeune/vieille, equipe avec le plus de buts,...)
 
-# - Essai2 :
-
-# - Essai3 :
-
-# - Essai4 :
-
-# - Essai5 :
-
-# - Essai6 :
-
-# - Essai7 :
-
-# - Essai8 :
-
-# -
+# - En bonus : Une page de login avec possibilité de créer un compte et d'enregistrer notre progression
