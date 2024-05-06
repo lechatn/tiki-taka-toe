@@ -44,6 +44,7 @@ app.post('/login', async (req, res) => {
 
         if (user && await bcrypt.compare(password, user.password)) {
             req.session.user = user;
+            req.session.email = email;
             res.json({ status: 'success', message: 'User logged in successfully' });
         } else {
             res.status(401).json({ status: 'error', message: 'Invalid email or password' });
@@ -66,7 +67,7 @@ app.post('/signup', async (req, res) => {
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
-        const result = await collection.insertOne({ email, password: hashedPassword });
+        const result = await collection.insertOne({ email, password: hashedPassword, whoAreYaWin: 0, wordleWin: 0, bingoStatsWin: 0});
 
         if (!result) {
             throw new Error('Failed to insert user into database');
@@ -92,6 +93,26 @@ app.post('/logout', (req, res) => {
     });
 });
 
+app.post('/increment-win', async (req, res) => {
+    const { email, game } = req.body;
+
+    try {
+        const collection = client.db("test").collection("users");
+
+        // Find user with given email and increment the game field
+        const result = await collection.updateOne({ email }, { $inc: { [game]: 1 } });
+
+        if (result.matchedCount === 0) {
+            throw new Error('No user found with given email');
+        }
+
+        res.json({ status: 'success', message: 'User win count incremented successfully' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ status: 'error', message: 'An error occurred while incrementing win count' });
+    }
+});
+
 app.get('/is-logged-in', (req, res) => {
 
     if (req.session.user) {
@@ -100,6 +121,14 @@ app.get('/is-logged-in', (req, res) => {
     } else {
         res.json({ isLoggedIn: false });
         console.log('is-not-logged-in')
+    }
+});
+
+app.get('/get-user-email', (req, res) => {
+    if (req.session.user) {
+        res.json({ status: 'success', email: req.session.email });
+    } else {
+        res.status(401).json({ status: 'error', message: 'User not logged in' });
     }
 });
 

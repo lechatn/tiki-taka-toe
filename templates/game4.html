@@ -53,23 +53,27 @@
             <form action="" id =loginForm>
                 <h1>Login</h1>
                 <div class="input-box-login">
-                    <input type="text" placeholder="Username" required>
+                    <input type="text" id="email" placeholder="Email" required>
                     <i class="material-icons">
                         account_circle
                     </i>
                 </div>
                 <div class="input-box-login">
-                    <input type="password" placeholder="Password" required>
+                    <input type="password" id="password" placeholder="Password" required>
                     <i class="material-icons">
                         lock
                     </i>
                 </div>
-    
+
                 <div class="remember-forgot">
                     <label class="checkbox-popup"><input type="checkbox">Remember me</label>
                     <a href="#">Forgot password?</a>
                 </div>
-    
+
+                <div class="loginStatus" id = "loginStatus">
+
+                </div>
+
                 <button type="submit" class="btn-login"> Login </button>
 
                 <div class="signup-link">

@@ -3,6 +3,7 @@ import premierLeague from "../data/premier.json" assert { type: "json" };
 import ligue1 from "../data/ligue1.json" assert { type: "json" };
 import serieA from "../data/seria.json" assert { type: "json" };
 import laLiga from "../data/liga.json" assert { type: "json" };
+import { incrementWin, getUserEmail} from "./incrementWin.js";
 
 const searchInput = document.querySelector(".searchInput");
 const input = searchInput.querySelector("input");
@@ -271,6 +272,12 @@ function win(playerToGuess) { // Function win when the user has found the player
   image.style.width = "100px";
   image.style.height = "100px";
   image.style.marginTop = "10px";
+
+  // Increment the win count
+  getUserEmail().then(email => {
+    console.log(email);
+    incrementWin("whoAreYaWin", email);
+  });
 }
 
 let button = document.querySelector(".reveal");
