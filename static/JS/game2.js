@@ -86,28 +86,6 @@ function tryPlayer(playerToGuess, userInput, turn, circles) {
   if (turn === 3) {
     document.querySelector(".revealPhoto").style.display = "block";
   }
-
-  if (turn === 6) {
-    document.querySelector(".player").src = photo; 
-    document.querySelector(".player").style.display = "block";
-    document.querySelector(".revealPhoto").style.display = "none"; 
-    document.querySelector(".playagain").style.display = "block"; 
-  }
-  let box = document.querySelector(`.box${turn + 1}`);
-    for (let i = 0; i < playerToGuess.length; i++) {
-        let new_data = i === 0
-            ? `<input type="text" class="circle${turn + 1}" maxlength="1" value="${playerToGuess[i]}" style="background-color: rgb(34, 197, 94);" readonly></input>`
-            : `<input type="text" class="circle${turn + 1}" maxlength="1"></input>`;
-        box.innerHTML += new_data;
-}
-if(find) {
-  document.querySelector(`.box${turn+1}`).style.display = "none";
-  document.querySelector(".player").src = photo; 
-  document.querySelector(".player").style.display = "block";
-  document.querySelector(".revealPhoto").style.display = "none"; 
-  document.querySelector(".playagain").style.display = "block"; 
-  return;
-}
   if (turn === 6) { // If the user has made 6 tries, the game is over
     document.querySelector(".player").src = photo;
     document.querySelector(".player").style.display = "block"; // Display the player photo
