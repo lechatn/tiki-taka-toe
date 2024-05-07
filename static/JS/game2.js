@@ -3,7 +3,7 @@ import premierLeague from "../data/premier.json" assert { type: "json" };
 import ligue1 from "../data/ligue1.json" assert { type: "json" };
 import serieA from "../data/seria.json" assert { type: "json" };
 import laLiga from "../data/liga.json" assert { type: "json" };
-import { incrementWin, getUserEmail} from "./incrementWin.js";
+import { getUserEmail, incrementWin } from "./incrementWin.js";
 
 const allData = laLiga.concat( // Concatenate all the data in one array
   bundesliga,
@@ -86,19 +86,21 @@ function tryPlayer(playerToGuess, userInput, turn, circles) {
     circles[i].disabled = true;
   }
 
-if (turn === 3) {
-  document.querySelector(".revealPhoto").style.display = "block";
-  let img = document.querySelector(".player"); // Display the player photo
-  img.onerror = function() {
-    img.src = 'https://apiv3.apifootball.com/badges/players/92588_aitor-paredes.jpg';
+  if (turn === 3) {
+    document.querySelector(".revealPhoto").style.display = "block";
+    let img = document.querySelector(".player"); // Display the player photo
+    img.onerror = function () {
+      img.src =
+        "https://apiv3.apifootball.com/badges/players/92588_aitor-paredes.jpg";
+    };
   }
-}
   if (turn === 6) { // If the user has made 6 tries, the game is over
-    let image = document.querySelector(".player")
+    let image = document.querySelector(".player");
     image.src = photo; // Display the player photo
-    image.onerror = function() {
-      image.src = 'https://apiv3.apifootball.com/badges/players/92588_aitor-paredes.jpg';
-    }
+    image.onerror = function () {
+      image.src =
+        "https://apiv3.apifootball.com/badges/players/92588_aitor-paredes.jpg";
+    };
     image.style.display = "block";
     document.querySelector(".revealPhoto").style.display = "none";
     document.querySelector(".playagain").style.display = "block"; // Display the play again button
@@ -119,27 +121,26 @@ if (turn === 3) {
   }
   if (find) { // If the user has found the player, the game is over
     document.querySelector(`.box${turn + 1}`).style.display = "none";
-    let image = document.querySelector(".player") // Display the player photo
+    let image = document.querySelector(".player"); // Display the player photo
     image.src = photo;
-    image.onerror = function() {
-      image.src = 'https://apiv3.apifootball.com/badges/players/92588_aitor-paredes.jpg';
-    }
+    image.onerror = function () {
+      image.src =
+        "https://apiv3.apifootball.com/badges/players/92588_aitor-paredes.jpg";
+    };
     image.style.display = "block";
     document.querySelector(".revealPhoto").style.display = "none";
     document.querySelector(".playagain").style.display = "block"; // Display the play again button
     document.querySelector("#victoryMessage").textContent =
       `Bravo ! Vous avez trouvé le joueur ${playerToGuess}`; // Display the victory message
-      document.querySelector("#victoryMessage").style.display = "block";
-      document.querySelector("#victoryMessage").style.color = "green";
-      document.querySelector("#victoryMessage").style.fontSize = "1.5em";
+    document.querySelector("#victoryMessage").style.display = "block";
+    document.querySelector("#victoryMessage").style.color = "green";
+    document.querySelector("#victoryMessage").style.fontSize = "1.5em";
     getUserEmail().then((email) => {
       incrementWin("wordleWin", email);
     });
     return;
 
     // Increment the win count
-
-
   }
 
   playGame(playerToGuess, userInput, turn); // Start the next turn

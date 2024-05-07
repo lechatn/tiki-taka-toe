@@ -3,7 +3,7 @@ import premierLeague from "../data/premier.json" assert { type: "json" };
 import ligue1 from "../data/ligue1.json" assert { type: "json" };
 import serieA from "../data/seria.json" assert { type: "json" };
 import laLiga from "../data/liga.json" assert { type: "json" };
-import { incrementWin, getUserEmail} from "./incrementWin.js";
+import { getUserEmail, incrementWin } from "./incrementWin.js";
 
 const searchInput = document.querySelector(".searchInput");
 const input = searchInput.querySelector("input");
@@ -15,7 +15,6 @@ const allData = laLiga.concat( // Concatenate all the data in one array
   ligue1,
   serieA,
 );
-
 
 let playerArray = [];
 
@@ -35,7 +34,7 @@ let playerTeamToGuess = result.team;
 let turn = 0;
 
 input.onkeyup = (e) => {
-  let userData = e.target.value; 
+  let userData = e.target.value;
   let emptyArray = [];
   if (userData) { // Check if the user has entered something
     emptyArray = playerArray.filter((data) => {
@@ -81,7 +80,7 @@ function showSuggestions(list) { // Display the results of the search
   } else {
     listData = list.join("");
   }
-  resultBox.innerHTML = listData; 
+  resultBox.innerHTML = listData;
 }
 
 function randomPlayer() { // Choose a random player
@@ -114,16 +113,17 @@ function testplayer(
   turn++;
   if (turn === 1) { // If the user has made 7 turns, the game is over
     let new_data = "<p>Game Over, the good player was " +
-      playerToGuess.player_name + "</p>" + "<img id='gameOverImage' src='" + playerToGuess.player_image + 
+      playerToGuess.player_name + "</p>" + "<img id='gameOverImage' src='" +
+      playerToGuess.player_image +
       "' alt='Sorry, no image avaible!'>";
     resultBox.innerHTML = new_data;
     document.querySelector(".playagain").style.display = "block";
 
-    let img = document.querySelector('#gameOverImage');
-    img.onerror = function() {
-    img.src = 'https://apiv3.apifootball.com/badges/players/92588_aitor-paredes.jpg';
-
-};
+    let img = document.querySelector("#gameOverImage");
+    img.onerror = function () {
+      img.src =
+        "https://apiv3.apifootball.com/badges/players/92588_aitor-paredes.jpg";
+    };
 
     let image = resultBox.querySelector("img");
     image.style.borderRadius = "50%";
@@ -137,7 +137,8 @@ function testplayer(
 }
 
 function isValide(player, playerTeam) { // Check if the player is valid
-  if ( // We take only the players with a number, an age, a type, a team country, a team name and an image
+  if (
+    // We take only the players with a number, an age, a type, a team country, a team name and an image
     player.player_number === "" || player.player_age === "" ||
     player.player_type === "" || playerTeam.team_country === "" ||
     playerTeam.team_name === "" || player.player_image === ""
@@ -243,7 +244,7 @@ function displayGuess(
   if (playerTeam.team_name === playerTeamToGuess.team_name) { // Check if the team name is the good one
     playerClub.innerHTML = "<img src='" + playerTeamToGuess.team_badge +
       "' alt='Sorry, no image avaible!'>";
-    playerClub.style.backgroundColor = "rgb(34, 197, 94)"; 
+    playerClub.style.backgroundColor = "rgb(34, 197, 94)";
   } else {
     playerClub.innerHTML = "<img src='" + playerTeam.team_badge +
       "' alt='Sorry, no image avaible!'>";
@@ -267,13 +268,13 @@ function displayGuess(
 function win(playerToGuess) { // Function win when the user has found the player
   let new_data = "<p>Congratulations, you found the player " +
     playerToGuess.player_name + "</p>" +
-    "<img src='" + playerToGuess.player_image + 
+    "<img src='" + playerToGuess.player_image +
     "' alt='Sorry, no image avaible!'>"; // Display the player image
 
   let resultBox = document.querySelector(".map");
   resultBox.innerHTML = new_data;
-  
-  document.querySelector(".playagain").style.display = "block"; 
+
+  document.querySelector(".playagain").style.display = "block";
 
   let image = resultBox.querySelector("img");
   image.style.borderRadius = "50%";
@@ -282,7 +283,7 @@ function win(playerToGuess) { // Function win when the user has found the player
   image.style.marginTop = "10px";
 
   // Increment the win count
-  getUserEmail().then(email => {
+  getUserEmail().then((email) => {
     incrementWin("whoAreYaWin", email);
   });
 }
