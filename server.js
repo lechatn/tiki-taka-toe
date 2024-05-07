@@ -69,7 +69,7 @@ app.post('/signup', async (req, res) => {
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
-        const result = await collection.insertOne({ username , email, password: hashedPassword, whoAreYaWin: 0, wordleWin: 0, bingoStatsWin: 0});
+        const result = await collection.insertOne({ username , email, password: hashedPassword, totalGames : 0, totalWin : 0, totalLoss :0, whoAreYaWin: 0, wordleWin: 0, bingoStatsWin: 0});
 
         if (!result) {
             throw new Error('Failed to insert user into database');
@@ -105,6 +105,8 @@ app.post('/increment-win', async (req, res) => {
 
         // Find user with given email and increment the game field
         const result = await collection.updateOne({ email }, { $inc: { [game]: 1 } });
+        await collection.updateOne({ email }, { $inc: { totalWin: 1 } });
+        await collection.updateOne({ email }, { $inc: { totalGames: 1 } });
 
         if (result.matchedCount === 0) {
             throw new Error('No user found with given email');
@@ -140,6 +142,22 @@ app.get('/get-user-username', (req, res) => {
     } else {
         res.status(401).json({ status: 'error', message: 'User not logged in' });
     }
+});
+
+app.get('/get-user-stats', async (req, res) => {
+    if (req.session.user) {
+        const collection = client.db("login").collection("login");
+        const user = await collection.findOne({ email: req.session.email });
+
+        if (!user) {
+            return res.status(404).json({ status: 'error', message: 'User not found' });
+        }
+
+        res.json({ status: 'success', user });
+    } else {
+        res.status(401).json({ status: 'error', message: 'User not logged in' });
+    }
+
 });
 
 app.get('/', (req, res) => {

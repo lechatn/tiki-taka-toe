@@ -50,3 +50,19 @@ export function getUserUsername()  {
             console.error('Error:', error);
         });
 }
+
+export function getUserStats()  {
+    return fetch('/get-user-stats')
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                const userStats = data.user;
+                return userStats;
+            } else {
+                console.error('Failed to get user stats:', data.message);
+            }
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+}
