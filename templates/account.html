@@ -96,8 +96,8 @@
             <div class="account">
                 <div class="account-info">
                     <h2>My Info</h2>
-                    <p>Email: <span id="email"></span></p>
-                    <p>Username: <span id="username"></span></p>
+                    <p>Email: <p class="email"> </p></p>
+                    <p>Username: <p class="username1"> </p></p>
                 </div>
                 <div class="account-stats">
                     <h2>My Stats</h2>
@@ -110,13 +110,24 @@
     </main>
     <script src="/JS/login.js"></script>
     <script src="/JS/burger.js"></script>
-    <script>
+    <script type="module">
+        import { getUserUsername, getUserEmail, getUserStats } from '/JS/incrementWin.js';
+
         window.onload = function() {
             fetch('/is-logged-in')
                 .then(response => response.json())
                 .then(data => {
                     if (data.isLoggedIn) {
-                        document.querySelector('.button-connection').innerHTML = '<a href="/">Home</a> <a href="account.html" class="account-link"><i class="material-icons">account_circle</i></a>    <button id="logoutButton" style="display: none;">Logout</button>';                        const logoutButton = document.getElementById('logoutButton');
+                        getUserStats().then(stats => {
+                            document.querySelector('.email').textContent = stats.email;
+                            document.querySelector('.username').textContent = stats.username;
+                            document.querySelector('.username1').textContent = stats.username;
+                            document.getElementById('gamesPlayed').textContent = stats.totalGames;
+                            console.log(stats);
+                            document.getElementById('gamesWon').textContent = stats.totalWin;
+                        });
+
+                        document.querySelector('.button-connection').innerHTML = '<a href="/">Home</a> <p class="username"></p>  <a href="account.html" class="account-link"><i class="material-icons">account_circle</i></a>    <button id="logoutButton" style="display: none;">Logout</button>';                        const logoutButton = document.getElementById('logoutButton');
                         if (logoutButton) {
                             logoutButton.style.display = 'block'; // Show the logout button
                             logoutButton.addEventListener('click', logout);

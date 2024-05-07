@@ -118,7 +118,7 @@ function displayPlayers(selectedPlayer, others) {
 
     players.forEach((player, index) => {
         console.log(player, index);
-        document.getElementById(`player${index}`).addEventListener('click', function() {
+        document.querySelector(`.player${index}`).addEventListener('click', function() {
             if (selectedPlayer === player) {
                 win(player);
             } else {
