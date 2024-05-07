@@ -22,18 +22,18 @@
             <ul>
                 <li>
                     <a href="game1.html">Who are ya ?</a>
-                    <p>Description</p>
+                    <p>Find the player</p>
                 </li>
                 <li>
                     <a href="game2.html">Player Wordle</a>
+                    <p>Find the player's name</p>
+                </li>
+                <li>
+                    <a href="game3.html">Bingo Stats</a>
                     <p>Description</p>
                 </li>
                 <li>
-                    <a href="game3.html">Game 3</a>
-                    <p>Description</p>
-                </li>
-                <li>
-                    <a href="game4.html">Game 4</a>
+                    <a href="game4.html">Bingo</a>
                     <p>Description</p>
                 </li>
                 <li>
@@ -52,26 +52,30 @@
     </header>
     <main>
         <div id="wrapper">
-            <form action="">
+            <form action="" id =loginForm>
                 <h1>Login</h1>
                 <div class="input-box-login">
-                    <input type="text" placeholder="Username" required>
+                    <input type="text" id="email" placeholder="Email" required>
                     <i class="material-icons">
                         account_circle
                     </i>
                 </div>
                 <div class="input-box-login">
-                    <input type="password" placeholder="Password" required>
+                    <input type="password" id="password" placeholder="Password" required>
                     <i class="material-icons">
                         lock
                     </i>
                 </div>
-    
+
                 <div class="remember-forgot">
                     <label class="checkbox-popup"><input type="checkbox">Remember me</label>
                     <a href="#">Forgot password?</a>
                 </div>
-    
+
+                <div class="loginStatus" id = "loginStatus">
+
+                </div>
+
                 <button type="submit" class="btn-login"> Login </button>
 
                 <div class="signup-link">
@@ -118,6 +122,7 @@
             </div>
             <div class="retry">
                 <div id="defeatMessage" style="display: none;"></div>
+                <div id="victoryMessage" style="display: none;"></div>
                 <button class="playagain">Play again</button>
             </div>
         </div>
@@ -125,5 +130,23 @@
     <script src="/JS/login.js"></script>
     <script src="/JS/burger.js"></script>
     <script src="/JS/game2.js" type="module"></script>
+    <script src = "/JS/incrementWin.js" type="module"></script>
+    <script>
+        window.onload = function() {
+            fetch('/is-logged-in')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.isLoggedIn) {
+                        document.querySelector('.button-connection').innerHTML = '<span>Connected</span><button id="logoutButton" style="display: none;">Logout</button>';
+                        const logoutButton = document.getElementById('logoutButton');
+                        if (logoutButton) {
+                            logoutButton.style.display = 'block'; // Show the logout button
+                            logoutButton.addEventListener('click', logout);
+                        }
+                    }
+                });
+        }
+    </script>
+    <script src="/JS/logout.js"></script>
 </body>
 </html>

@@ -1,83 +1,175 @@
-const http = require("http");
-const fs = require("fs");
-const url = require("url");
-const path = require("path");
-const express = require("express");
+const http = require('http');
+const fs = require ('fs');
+const url = require('url');
+const path = require('path');
+const express = require('express');
+const bcrypt = require('bcrypt');
+const session = require('express-session');
 const app = express();
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const { MongoClient, ServerApiVersion } = require('mongodb');
+require('dotenv').config({path: __dirname + '/key.env'})
 
 app.use(express.static("static"));
-app.use("/IMG", express.static("static/IMG"));
+app.use('/IMG', express.static('static/IMG'));
+app.use(express.json());
 
-const server = http.createServer((req, res, app) => {
-  let reqUrl = url.parse(req.url);
-  let fileName = "";
-  let folderName = "templates";
+// Connect to MongoDB
+const client = new MongoClient(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
-  if (
-    reqUrl.pathname.endsWith(".css") || reqUrl.pathname.endsWith(".js") ||
-    reqUrl.pathname.endsWith(".png") || reqUrl.pathname.endsWith(".jpeg") ||
-    reqUrl.pathname.endsWith(".json") || reqUrl.pathname.endsWith(".jpg")
-  ) {
-    fileName = reqUrl.pathname;
-    folderName = "static";
-  } else {
-    switch (reqUrl.pathname) {
-      case "/":
-        fileName = "index.html";
-        break;
-      case "/game1.html":
-        fileName = "game1.html";
-        break;
-      case "/game2.html":
-        fileName = "game2.html";
-        break;
-      case "/game3.html":
-        fileName = "game3.html";
-        break;
-      case "/game4.html":
-        fileName = "game4.html";
-        break;
-      case "/game5.html":
-        fileName = "game5.html";
-        break;
-      case "/signup.html":
-        fileName = "signup.html";
-        break;
-    }
-  }
-
-  let filePath = path.join(__dirname, folderName, fileName);
-
-  fs.readFile(filePath, (err, data) => {
-    if (err) {
-      res.writeHead(404);
-      res.end(`Error: ${err}`);
-    } else {
-      let contentType = "text/html";
-      if (fileName.endsWith(".css")) {
-        contentType = "text/css";
-      } else if (fileName.endsWith(".js")) {
-        contentType = "text/javascript";
-      } else if (fileName.endsWith(".png")) {
-        contentType = "image/png";
-        data = new Buffer(data, "binary");
-      } else if (fileName.endsWith(".jpeg")) {
-        contentType = "image/jpeg";
-        data = new Buffer(data, "binary");
-      } else if (fileName.endsWith(".json")) {
-        contentType = "application/json";
-      } else if (fileName.endsWith(".jpg")) {
-        contentType = "image/jpg";
-        data = new Buffer(data, "binary");
-      }
-      res.writeHead(200, { "Content-Type": contentType });
-      res.end(data, "binary");
-    }
-  });
+client.connect().then(() => {
+    console.log('Connected to MongoDB');
+}).catch((error) => {
+    console.error('Error connecting to MongoDB:', error);
 });
 
-const host = "localhost";
+
+app.use(express.json());
+
+app.use(session({
+    secret: 'your secret key',
+    resave: false,
+    saveUninitialized: false
+}));
+
+app.post('/login', async (req, res) => {
+    const { email, password } = req.body;
+
+    try {
+        const collection = client.db("test").collection("users");
+
+        // Find user with given email
+        const user = await collection.findOne({ email });
+
+        if (user && await bcrypt.compare(password, user.password)) {
+            req.session.user = user;
+            req.session.email = email;
+            res.json({ status: 'success', message: 'User logged in successfully' });
+        } else {
+            res.status(401).json({ status: 'error', message: 'Invalid email or password' });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ status: 'error', message: 'An error occurred while logging in the user' });
+    }
+});
+
+app.post('/signup', async (req, res) => {
+    const { email, password } = req.body;
+
+    try {
+        const collection = client.db("test").collection("users");
+        const pastUser = await collection.findOne({ email });
+
+        if (pastUser) {
+            return res.status(400).json({ status: 'error', message: 'User already exists' });
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const result = await collection.insertOne({ email, password: hashedPassword, whoAreYaWin: 0, wordleWin: 0, bingoStatsWin: 0});
+
+        if (!result) {
+            throw new Error('Failed to insert user into database');
+        }
+
+        req.session.user = result;
+        req.session.email = email;
+
+        res.json({ status: 'success', message: 'User registered successfully' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ status: 'error', message: 'An error occurred while registering the user' });
+    }
+});
+
+app.post('/logout', (req, res) => {
+    req.session.destroy(err => {
+        if (err) {
+            console.error(err);
+            res.status(500).json({ status: 'error', message: 'An error occurred while logging out' });
+        } else {
+            res.json({ status: 'success', message: 'User logged out successfully' });
+        }
+    });
+});
+
+app.post('/increment-win', async (req, res) => {
+    const { email, game } = req.body;
+
+    try {
+        const collection = client.db("test").collection("users");
+
+        // Find user with given email and increment the game field
+        const result = await collection.updateOne({ email }, { $inc: { [game]: 1 } });
+
+        if (result.matchedCount === 0) {
+            throw new Error('No user found with given email');
+        }
+
+        res.json({ status: 'success', message: 'User win count incremented successfully' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ status: 'error', message: 'An error occurred while incrementing win count' });
+    }
+});
+
+app.get('/is-logged-in', (req, res) => {
+
+    if (req.session.user) {
+        res.json({ isLoggedIn: true });
+    } else {
+        res.json({ isLoggedIn: false });
+    }
+});
+
+app.get('/get-user-email', (req, res) => {
+    if (req.session.user) {
+        res.json({ status: 'success', email: req.session.email });
+    } else {
+        res.status(401).json({ status: 'error', message: 'User not logged in' });
+    }
+});
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'templates', 'index.html'));
+});
+
+app.get('/game1.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'templates', 'game1.html'));
+});
+
+app.get('/game2.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'templates', 'game2.html'));
+});
+
+app.get('/game3.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'templates', 'game3.html'));
+});
+
+app.get('/game4.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'templates', 'game4.html'));
+});
+
+app.get('/game5.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'templates', 'game5.html'));
+});
+
+app.get('/signup.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'templates', 'signup.html'));
+});
+
+process.on('SIGINT', async () => {
+    await client.close();
+    console.log('Disconnected from MongoDB');
+    process.exit();
+});
+
+const server = http.createServer(app);
+
+const host = 'localhost';
 const port = 3000;
 server.listen(port, () => {
-  console.log(`Server is running on http://${host}:${port}/`);
+    console.log(`Server is running on http://${host}:${port}/`);
 });
+

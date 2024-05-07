@@ -3,6 +3,7 @@ import premierLeague from "../data/premier.json" assert { type: "json" };
 import ligue1 from "../data/ligue1.json" assert { type: "json" };
 import serieA from "../data/seria.json" assert { type: "json" };
 import laLiga from "../data/liga.json" assert { type: "json" };
+import { incrementWin, getUserEmail} from "./incrementWin.js";
 
 const searchInput = document.querySelector(".searchInput");
 const input = searchInput.querySelector("input");
@@ -113,9 +114,16 @@ function testplayer(
   turn++;
   if (turn === 7) { // If the user has made 7 turns, the game is over
     let new_data = "<p>Game Over, the good player was " +
-      playerToGuess.player_name + "</p>";
+      playerToGuess.player_name + "</p>" + "<img src='" + playerToGuess.player_image + 
+      "' alt='Sorry, no image avaible!'>";;
     resultBox.innerHTML = new_data;
     document.querySelector(".playagain").style.display = "block";
+
+    let image = resultBox.querySelector("img");
+    image.style.borderRadius = "50%";
+    image.style.width = "100px";
+    image.style.height = "100px";
+    image.style.marginTop = "10px";
   } else if (turn === 4) { // If the user has made 4 turns, we display the button to reveal the player if he wants to have a clue
     document.querySelector(".reveal").style.display = "flex";
   }
@@ -266,6 +274,11 @@ function win(playerToGuess) { // Function win when the user has found the player
   image.style.width = "100px";
   image.style.height = "100px";
   image.style.marginTop = "10px";
+
+  // Increment the win count
+  getUserEmail().then(email => {
+    incrementWin("whoAreYaWin", email);
+  });
 }
 
 let button = document.querySelector(".reveal");

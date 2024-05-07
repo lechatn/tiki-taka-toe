@@ -3,6 +3,7 @@ import premierLeague from "../data/premier.json" assert { type: "json" };
 import ligue1 from "../data/ligue1.json" assert { type: "json" };
 import serieA from "../data/seria.json" assert { type: "json" };
 import laLiga from "../data/liga.json" assert { type: "json" };
+import { incrementWin, getUserEmail} from "./incrementWin.js";
 
 const allData = laLiga.concat( // Concatenate all the data in one array
   bundesliga,
@@ -15,6 +16,7 @@ let [playerArray, playerPhoto] = loadData(allData); // Loading data
 let [result, photo] = randomPlayer(); // Choose a random player
 startListener(photo);
 launchGame(result); // Launch the game
+console.log(result);
 
 function randomPlayer() {
   let randomIndex = Math.floor(Math.random() * playerArray.length); // Choose a random index
@@ -96,6 +98,8 @@ if (turn === 3) {
       `Dommage ! Le joueur était ${playerToGuess}`; // Display the defeat message
     document.querySelector("#defeatMessage").style.display = "block";
     document.querySelector("#defeatMessage").style.color = "red";
+    document.querySelector("#defeatMessage").style.fontSize = "1.5em";
+    
   }
   let box = document.querySelector(`.box${turn + 1}`); // Display the next circles
   for (let i = 0; i < playerToGuess.length; i++) {
@@ -112,7 +116,19 @@ if (turn === 3) {
     document.querySelector(".player").style.display = "block";
     document.querySelector(".revealPhoto").style.display = "none";
     document.querySelector(".playagain").style.display = "block"; // Display the play again button
+    document.querySelector("#victoryMessage").textContent =
+      `Bravo ! Vous avez trouvé le joueur ${playerToGuess}`; // Display the victory message
+      document.querySelector("#victoryMessage").style.display = "block";
+      document.querySelector("#victoryMessage").style.color = "green";
+      document.querySelector("#victoryMessage").style.fontSize = "1.5em";
+    getUserEmail().then((email) => {
+      incrementWin("wordleWin", email);
+    });
     return;
+
+    // Increment the win count
+
+
   }
 
   playGame(playerToGuess, userInput, turn); // Start the next turn

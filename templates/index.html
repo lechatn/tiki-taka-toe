@@ -12,6 +12,7 @@
 </head>
 
 <body>
+
     <div class="nav">
         <button class="burger" onclick="show()">
             <div id="bar1" class="bar"></div>
@@ -23,18 +24,18 @@
             <ul>
                 <li>
                     <a href="game1.html">Who are ya ?</a>
-                    <p>Description</p>
+                    <p>Find the player</p>
                 </li>
                 <li>
                     <a href="game2.html">Player Wordle</a>
-                    <p>Description</p>
+                    <p>Find the player's name</p>
                 </li>
                 <li>
-                    <a href="game3.html">Game 3</a>
-                    <p>Description</p>
+                    <a href="game3.html">Bingo Stats</a>
+                    <p>Who has this stat</p>
                 </li>
                 <li>
-                    <a href="game4.html">Game 4</a>
+                    <a href="game4.html">Bingo</a>
                     <p>Description</p>
                 </li>
                 <li>
@@ -48,20 +49,21 @@
         <section class="button-connection">
             <a href="#login" onclick="togglePopup()">Login</a>
             <a href="signup.html">Sign Up</a>
+            <button id="logoutButton" style="display: none;">Logout</button>
         </section>
     </header>
     <main>
         <div id="wrapper">
-            <form action="">
+            <form action="" id =loginForm>
                 <h1>Login</h1>
                 <div class="input-box-login">
-                    <input type="text" placeholder="Username" required>
+                    <input type="text" id="email" placeholder="Email" required>
                     <i class="material-icons">
                         account_circle
                     </i>
                 </div>
                 <div class="input-box-login">
-                    <input type="password" placeholder="Password" required>
+                    <input type="password" id="password" placeholder="Password" required>
                     <i class="material-icons">
                         lock
                     </i>
@@ -70,6 +72,10 @@
                 <div class="remember-forgot">
                     <label class="checkbox-popup"><input type="checkbox">Remember me</label>
                     <a href="#">Forgot password?</a>
+                </div>
+
+                <div class="loginStatus" id = "loginStatus">
+
                 </div>
     
                 <button type="submit" class="btn-login"> Login </button>
@@ -89,33 +95,72 @@
             <p> Choose a game to play </p>
             <div class="game-list">
                 <div class="game">
-                    <h2>Who are ya ?</h2>
-                    <a href="game1.html">
-                        Play game
-                    </a>
+                    <div class="game-img">
+                        <img src="/IMG/whoareya.png" alt="Who are ya ?">
+                    </div>
+                    <div class="game-info">
+                        <h2>Who are ya ?</h2>
+                        <a href="game1.html">
+                            Play game
+                        </a>
+                    </div>
                 </div>
                 <div class="game">
-                    <h2>Player Wordle</h2>
-                    <a href="game2.html">
-                        Play game
-                    </a>
+                    <div class="game-img">
+                        <img src="/IMG/wordle.png" alt="Footballer wordle">
+                    </div>
+                    <div class="game-info">
+                        <h2>Player Wordle</h2>
+                        <a href="game2.html">
+                            Play game
+                        </a>
+                    </div>
                 </div>
                 <div class="game">
-                    <h2>Game 3</h2>
-                    <a href="game3.html">
-                        Play game
-                    </a>
+                    <div class="game-img">
+                        <img src="/IMG/bingostat.png" alt="Bingo Statst">
+                    </div>
+                    <div class="game-info">
+                        <h2>Bingo Stats</h2>
+                        <a href="game3.html">
+                            Play game
+                        </a>
+                    </div>
                 </div>
                 <div class="game">
-                    <h2>Game 4</h2>
-                    <a href="game4.html">
-                        Play game
-                    </a>
+                    <div class="game-img">
+                        <img src="/" alt="Bingo">
+                    </div>
+                    <div class="game-info">
+                        <h2>Bingo</h2>
+                        <a href="game4.html">
+                            Play game
+                        </a>
+                    </div>
                 </div>
+            </div>
         </div>
 
     </main>
     <script src="/JS/login.js"></script>
     <script src="/JS/burger.js"></script>
+    <script>
+        window.onload = function() {
+            fetch('/is-logged-in')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.isLoggedIn) {
+                        document.querySelector('.button-connection').innerHTML = '<span>Connected</span><button id="logoutButton" style="display: none;">Logout</button>';
+                        const logoutButton = document.getElementById('logoutButton');
+                        if (logoutButton) {
+                            logoutButton.style.display = 'block'; // Show the logout button
+                            logoutButton.addEventListener('click', logout);
+                        }
+                    }
+                });
+        }
+    </script>
+    <script src="/JS/logout.js"></script>
+
 </body>
 </html>
