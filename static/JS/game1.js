@@ -64,6 +64,8 @@ input.onkeyup = (e) => {
           playerTeamToGuess,
           turn,
         );
+        input.value = ""; // Clear the search bar
+        input.focus(); // Focus on the search bar
       });
     }
   } else {
@@ -110,12 +112,18 @@ function testplayer(
     displayGuess(player, playerToGuess, playerTeam, playerTeamToGuess, turn); // Display the player
   }
   turn++;
-  if (turn === 7) { // If the user has made 7 turns, the game is over
+  if (turn === 1) { // If the user has made 7 turns, the game is over
     let new_data = "<p>Game Over, the good player was " +
-      playerToGuess.player_name + "</p>" + "<img src='" + playerToGuess.player_image + 
-      "' alt='Sorry, no image avaible!'>";;
+      playerToGuess.player_name + "</p>" + "<img id='gameOverImage' src='" + playerToGuess.player_image + 
+      "' alt='Sorry, no image avaible!'>";
     resultBox.innerHTML = new_data;
     document.querySelector(".playagain").style.display = "block";
+
+    let img = document.querySelector('#gameOverImage');
+    img.onerror = function() {
+    img.src = 'https://apiv3.apifootball.com/badges/players/92588_aitor-paredes.jpg';
+
+};
 
     let image = resultBox.querySelector("img");
     image.style.borderRadius = "50%";

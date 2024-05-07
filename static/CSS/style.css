@@ -15,7 +15,6 @@ body {
     background-image:url(/IMG/footBG.jpeg);
     background-size: cover;
     background-repeat: no-repeat;
-    backdrop-filter: blur(5px);
     background-attachment: fixed;
     }
 
