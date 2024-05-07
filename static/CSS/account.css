@@ -8,6 +8,11 @@
     
 }
 
+.username {
+    font-size: 1.8rem;
+    margin-top: 0;
+}
+
 .account-info {
     display: flex;
     justify-content: center;

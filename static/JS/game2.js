@@ -144,9 +144,6 @@ if (turn === 3) {
     });
     return;
 
-
-
-
   }
 
   playGame(playerToGuess, userInput, turn); // Start the next turn

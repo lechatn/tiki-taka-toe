@@ -169,29 +169,32 @@ function win(player) { // Function win when the user has found the player
       incrementWin("bingoStatsWin", userEmail);
     });
   }
+function lose(player) { // Function lose when the user has no more attempts
+  let new_data = "<p>Sorry, you loose, the player was " +
+    player.player_name + "</p>" +
+    "<img src='" + player.player_image +
+    "' alt='Sorry, no image avaible!'>"; // Display the player image
 
-  function lose(player) { // Function lose when the user has no more attempts
-    let new_data = "<p>Sorry, you loose, the player was " +
-      player.player_name + "</p>" +
-      "<img src='" + player.player_image + 
-      "' alt='Sorry, no image avaible!'>"; // Display the player image
-  
-    let resultBox = document.querySelector(".map");
-    resultBox.innerHTML = new_data;
-    
-    document.querySelector(".playagain").style.display = "block"; 
-  
-    let image = resultBox.querySelector("img");
-    image.style.borderRadius = "50%";
-    image.style.width = "100px";
-    image.style.height = "100px";
-    image.style.marginTop = "10px";
+  let resultBox = document.querySelector(".map");
+  resultBox.innerHTML = new_data;
+
+  document.querySelector(".playagain").style.display = "block";
+
+  let image = resultBox.querySelector("img");
+  image.onerror = function () {
+    image.src =
+      "https://apiv3.apifootball.com/badges/players/92588_aitor-paredes.jpg";
+  };
+  image.style.borderRadius = "50%";
+  image.style.width = "100px";
+  image.style.height = "100px";
+  image.style.marginTop = "10px";
 
     // Increment loss count
     getUserEmail().then((userEmail) => {
-      incrementLoss(userEmail);
+        incrementLoss(userEmail);
     });
-  }
+}
 
 
 
