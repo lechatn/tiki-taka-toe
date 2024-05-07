@@ -1,8 +1,10 @@
 const http = require('http');
+const socketIo = require('socket.io');
 const fs = require ('fs');
 const url = require('url');
 const path = require('path');
 const express = require('express');
+const os = require('os');
 const bcrypt = require('bcrypt');
 const session = require('express-session');
 const app = express();
@@ -37,7 +39,7 @@ app.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
     try {
-        const collection = client.db("test").collection("users");
+        const collection = client.db("login").collection("login");
 
         // Find user with given email
         const user = await collection.findOne({ email });
@@ -56,10 +58,10 @@ app.post('/login', async (req, res) => {
 });
 
 app.post('/signup', async (req, res) => {
-    const { email, password } = req.body;
+    const {username, email, password } = req.body;
 
     try {
-        const collection = client.db("test").collection("users");
+        const collection = client.db("login").collection("login");
         const pastUser = await collection.findOne({ email });
 
         if (pastUser) {
@@ -67,12 +69,13 @@ app.post('/signup', async (req, res) => {
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
-        const result = await collection.insertOne({ email, password: hashedPassword, whoAreYaWin: 0, wordleWin: 0, bingoStatsWin: 0});
+        const result = await collection.insertOne({ username , email, password: hashedPassword, whoAreYaWin: 0, wordleWin: 0, bingoStatsWin: 0});
 
         if (!result) {
             throw new Error('Failed to insert user into database');
         }
 
+        req.session.username= username;
         req.session.user = result;
         req.session.email = email;
 
@@ -98,7 +101,7 @@ app.post('/increment-win', async (req, res) => {
     const { email, game } = req.body;
 
     try {
-        const collection = client.db("test").collection("users");
+        const collection = client.db("login").collection("login");
 
         // Find user with given email and increment the game field
         const result = await collection.updateOne({ email }, { $inc: { [game]: 1 } });
@@ -126,6 +129,14 @@ app.get('/is-logged-in', (req, res) => {
 app.get('/get-user-email', (req, res) => {
     if (req.session.user) {
         res.json({ status: 'success', email: req.session.email });
+    } else {
+        res.status(401).json({ status: 'error', message: 'User not logged in' });
+    }
+});
+
+app.get('/get-user-username', (req, res) => {
+    if (req.session.user) {
+        res.json({ status: 'success', username: req.session.username });
     } else {
         res.status(401).json({ status: 'error', message: 'User not logged in' });
     }
@@ -170,8 +181,28 @@ process.on('SIGINT', async () => {
 });
 
 const server = http.createServer(app);
+const io = socketIo(server);
 
-const host = 'localhost';
+let host;
+
+const networkInterfaces = os.networkInterfaces();
+
+for (const name of Object.keys(networkInterfaces)) {
+    for (const net of networkInterfaces[name]) {
+        if (net.family === 'IPv4' && !net.internal) {
+            host = net.address;
+        }
+    }
+}
+
+io.on('connection', (socket) => {
+    console.log('New client connected');
+
+    socket.on('disconnect', () => {
+        console.log('Client disconnected');
+    });
+});
+
 const port = 3000;
 server.listen(port, () => {
     console.log(`Server is running on http://${host}:${port}/`);
