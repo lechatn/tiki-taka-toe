@@ -30,11 +30,10 @@
                 </li>
                 <li>
                     <a href="game3.html">Bingo Stats</a>
-                    <p>Description</p>
+                    <p>Who has this stat</p>
                 </li>
                 <li>
-                    <a href="game4.html">Bingo</a>
-                    <p>Description</p>
+                    <a href="#">Coming Soon</a>
                 </li>
                 <li>
                     <a href="/">Back to lobby</a>
@@ -164,14 +163,18 @@
     <script src="/JS/login.js"></script>
     <script src="/JS/burger.js"></script>
     <script src="/JS/game1.js" type="module"></script>
-    <script src = "/JS/incrementWin.js" type="module"></script>
-    <script>
+    <script type="module">
+        import {getUserStats } from '/JS/incrementWin.js';
         window.onload = function() {
             fetch('/is-logged-in')
                 .then(response => response.json())
                 .then(data => {
                     if (data.isLoggedIn) {
-                        document.querySelector('.button-connection').innerHTML = '<a href="/">Home</a> <a href="#rules" onclick="togglePopup2()">Rules</a> <a href="account.html" class="account-link"><i class="material-icons">account_circle</i></a><button id="logoutButton" style="display: none;">Logout</button>';
+                        getUserStats().then(stats => {
+                            document.querySelector('.username').textContent = stats.username;
+                            console.log(stats.username);
+                        });
+                        document.querySelector('.button-connection').innerHTML = '<a href="/">Home</a> <a href="#rules" onclick="togglePopup2()">Rules</a><p class="username"></p> <a href="account.html" class="account-link"><i class="material-icons">account_circle</i></a><button id="logoutButton" style="display: none;">Logout</button>';
                         const logoutButton = document.getElementById('logoutButton');
                         if (logoutButton) {
                             logoutButton.style.display = 'block'; // Show the logout button

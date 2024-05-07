@@ -5,8 +5,7 @@
     --yellow: rgb(252, 179, 0);
 }
 
-p {
-    margin-bottom: 20px;}
+
 
 
 .circle, .circle2, .circle3, .circle4, .circle5, .circle6 {
@@ -91,6 +90,7 @@ p {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    margin-top: 20px;
 }
 
 .reveal-content img {

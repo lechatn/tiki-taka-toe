@@ -36,8 +36,7 @@
                     <p>Who has this stat</p>
                 </li>
                 <li>
-                    <a href="game4.html">Bingo</a>
-                    <p>Description</p>
+                    <a href="#">Coming Soon</a>
                 </li>
                 <li>
                     <a href="/">Back to lobby</a>
@@ -55,7 +54,7 @@
     </header>
     <main>
         <div id="wrapper">
-            <form action="" id =loginForm>
+            <form action="" id ="loginForm">
                 <h1>Login</h1>
                 <div class="input-box-login">
                     <input type="text" id="email" placeholder="Email" required>
@@ -95,7 +94,7 @@
             <h1>My account</h1>
             <div class="account">
                 <div class="account-info">
-                    <h2>My Info</h2>
+                    <h2>My Infos</h2>
                     <p>Email: <p class="email"> </p></p>
                     <p>Username: <p class="username1"> </p></p>
                 </div>
@@ -111,7 +110,7 @@
     <script src="/JS/login.js"></script>
     <script src="/JS/burger.js"></script>
     <script type="module">
-        import { getUserUsername, getUserEmail, getUserStats } from '/JS/incrementWin.js';
+        import {getUserStats } from '/JS/incrementWin.js';
 
         window.onload = function() {
             fetch('/is-logged-in')
