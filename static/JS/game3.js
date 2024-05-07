@@ -13,7 +13,7 @@ for (let j = 0; j < allData.length; j++) {
   for (let i = 0; i < allData[j].players.length; i++) {
     if (playerSet.has(allData[j].players[i])) {
       continue;
-    } else if (isValide(allData[j].players[i], allData[j])) {
+    } else if (isValide(allData[j].players[i]) ) {
       playerSet.add(allData[j].players[i]);
     }
   }
@@ -22,7 +22,7 @@ for (let j = 0; j < allData.length; j++) {
 let playerArray = Array.from(playerSet);
 
 
-function isValide(player, playerTeam) {
+async function isValide(player) {
   if (
     player.player_number === "" ||
     player.player_age === "" ||
@@ -32,7 +32,7 @@ function isValide(player, playerTeam) {
     player.player_assists === ""
   ) {
     return false;
-  }
+  } 
   return true;
 }
 
@@ -104,10 +104,17 @@ function displayPlayers(selectedPlayer, others) {
     let html = '';
 
     players.forEach((player, index) => {
-        html += `<div id="player${index}">${player.player_name} <br> <br> <img src="${player.player_image}" alt="${player.player_name}" style="border-radius: 50%; width: 100px; height: 100px;"></div>`;
+        html += `<div class="player${index}">${player.player_name} <br> <br> <img src="${player.player_image}" alt="${player.player_name}" style="border-radius: 50%; width: 100px; height: 100px;"></div>`;
     });
 
     playersDiv.innerHTML = html;
+
+    players.forEach((player, index) => {
+      let img = document.querySelector(`.player${index} img`);
+      img.onerror = function() {
+          img.src = 'https://apiv3.apifootball.com/badges/players/92588_aitor-paredes.jpg';
+      }
+    });
 
     players.forEach((player, index) => {
         console.log(player, index);
