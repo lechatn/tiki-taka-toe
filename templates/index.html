@@ -49,7 +49,7 @@
         <section class="button-connection">
             <a href="#login" onclick="togglePopup()">Login</a>
             <a href="signup.html">Sign Up</a>
-            <button id="logoutButton" style="display: none;">Logout</button>
+            <button class="" id="logoutButton" style="display: none;">Logout</button>
         </section>
     </header>
     <main>
@@ -150,7 +150,7 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.isLoggedIn) {
-                        document.querySelector('.button-connection').innerHTML = '<span>Connected</span><button id="logoutButton" style="display: none;">Logout</button>';
+                        document.querySelector('.button-connection').innerHTML = '<a href="account.html" class="account-link"><i class="material-icons">account_circle</i></a><button id="logoutButton" style="display: none;">Logout</button>';
                         const logoutButton = document.getElementById('logoutButton');
                         if (logoutButton) {
                             logoutButton.style.display = 'block'; // Show the logout button

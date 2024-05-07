@@ -34,3 +34,19 @@ export function getUserEmail()  {
             console.error('Error:', error);
         });
 }
+
+export function getUserUsername()  {
+    return fetch('/get-user-username')
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                const userUsername = data.username;
+                return userUsername;
+            } else {
+                console.error('Failed to get user email:', data.message);
+            }
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+}

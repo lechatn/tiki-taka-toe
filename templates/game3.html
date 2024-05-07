@@ -45,6 +45,8 @@
     <header>
         <a class="title"></a>
         <section class="button-connection">
+            <a href="/">Home</a>
+            <a href="#rules" onclick="togglePopup2()">Rules</a>
             <a href="#login" onclick="togglePopup()">Login</a>
             <a href="signup.html">Sign Up</a>
         </section>
@@ -87,6 +89,20 @@
                 </a>
             </form>
         </div>
+        <div id="wrapper2">
+            <form action="">
+                <h1>Rules</h1>
+                <a href="javascript:void(0)" onclick="togglePopup2()" class="popup-exit">
+                    <i class="material-icons">
+                        close
+                    </i>
+                </a>
+                <p>find out which player the displayed stats belong to</p>
+                <p>You have 3 attempts</p>
+                <p>Good luck !</p>
+
+            </form>
+        </div>
         <section class="main">
             <div class="game-content">
                 <h1>Bingo Stats</h1>
@@ -120,7 +136,7 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.isLoggedIn) {
-                        document.querySelector('.button-connection').innerHTML = '<span>Connected</span><button id="logoutButton" style="display: none;">Logout</button>';
+                        document.querySelector('.button-connection').innerHTML = '<a href="/">Home</a> <a href="#rules" onclick="togglePopup2()">Rules</a><a href="account.html" class="account-link"><i class="material-icons">account_circle</i></a><button id="logoutButton" style="display: none;">Logout</button>';
                         const logoutButton = document.getElementById('logoutButton');
                         if (logoutButton) {
                             logoutButton.style.display = 'block'; // Show the logout button
