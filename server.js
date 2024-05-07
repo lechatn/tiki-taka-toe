@@ -159,6 +159,10 @@ app.get('/signup.html', (req, res) => {
     res.sendFile(path.join(__dirname, 'templates', 'signup.html'));
 });
 
+app.get('/account.html', (req, res) => {
+    res.sendFile(path.join(__dirname, 'templates', 'account.html'));
+});
+
 process.on('SIGINT', async () => {
     await client.close();
     console.log('Disconnected from MongoDB');

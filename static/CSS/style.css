@@ -59,13 +59,15 @@ p {
     gap: 20px;
 }
 
-.button-connection a {
+.button-connection  a {
+    border: none;
     text-decoration: none;
     color: #000000;
     background-color: #ffffff;
     padding: 10px 30px;
     border-radius: 20px;
     font-size: 1rem;
+    align-items: center;
 }
 
 .button-connection a:hover {
@@ -74,6 +76,56 @@ p {
     outline: #ffffff solid 2px;
 }
 
+.button-connection span {
+    text-decoration: none;
+    color: #000000;
+    background-color: #ffffff;
+    padding: 10px 30px;
+    border-radius: 20px;
+    font-size: 1rem;
+}
+
+.button-connection span:hover {
+    background-color: var(--bleu);
+    color: #ffffff;
+    outline: #ffffff solid 2px;
+}
+
+.button-connection button {
+    text-decoration: none;
+    color: #000000;
+    background-color: #ffffff;
+    padding: 10px 30px;
+    border-radius: 20px;
+    font-size: 1rem;
+}
+
+.button-connection button:hover {
+    background-color: var(--bleu);
+    color: #ffffff;
+    outline: #ffffff solid 2px;
+}
+
+a.account-link {
+    text-decoration: none !important;
+    margin-top: 3%;
+    color: white !important;
+    background-color: var(--bleu) !important;
+    padding: 0 !important;
+    border-radius: 50% !important;
+    font-size: 2rem !important;
+}
+
+a.account-link:hover {
+    background-color: var(--bleu) !important;
+    color: none !important;
+    outline: none !important;
+}
+
+a.account-link i {
+    align-items: center;
+    font-size: 2.5rem;
+}
 .container {
     display: none;
 }
