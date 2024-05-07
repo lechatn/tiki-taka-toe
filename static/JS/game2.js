@@ -3,7 +3,7 @@ import premierLeague from "../data/premier.json" assert { type: "json" };
 import ligue1 from "../data/ligue1.json" assert { type: "json" };
 import serieA from "../data/seria.json" assert { type: "json" };
 import laLiga from "../data/liga.json" assert { type: "json" };
-import { incrementWin, getUserEmail} from "./incrementWin.js";
+import { incrementWin, getUserEmail, incrementLoss} from "./incrementWin.js";
 
 const allData = laLiga.concat( // Concatenate all the data in one array
   bundesliga,
@@ -107,6 +107,11 @@ if (turn === 3) {
     document.querySelector("#defeatMessage").style.display = "block";
     document.querySelector("#defeatMessage").style.color = "red";
     document.querySelector("#defeatMessage").style.fontSize = "1.5em";
+
+    // Increment the loss count
+    getUserEmail().then((email) => {
+      incrementLoss(email);
+    });
   }
   let box = document.querySelector(`.box${turn + 1}`); // Display the next circles
   for (let i = 0; i < playerToGuess.length; i++) {
@@ -132,12 +137,14 @@ if (turn === 3) {
       document.querySelector("#victoryMessage").style.display = "block";
       document.querySelector("#victoryMessage").style.color = "green";
       document.querySelector("#victoryMessage").style.fontSize = "1.5em";
+
+    // Increment the win count
     getUserEmail().then((email) => {
       incrementWin("wordleWin", email);
     });
     return;
 
-    // Increment the win count
+
 
 
   }

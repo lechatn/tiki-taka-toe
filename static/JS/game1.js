@@ -3,7 +3,7 @@ import premierLeague from "../data/premier.json" assert { type: "json" };
 import ligue1 from "../data/ligue1.json" assert { type: "json" };
 import serieA from "../data/seria.json" assert { type: "json" };
 import laLiga from "../data/liga.json" assert { type: "json" };
-import { incrementWin, getUserEmail} from "./incrementWin.js";
+import { incrementWin, getUserEmail, incrementLoss} from "./incrementWin.js";
 
 const searchInput = document.querySelector(".searchInput");
 const input = searchInput.querySelector("input");
@@ -122,6 +122,11 @@ function testplayer(
     let img = document.querySelector('#gameOverImage');
     img.onerror = function() {
     img.src = 'https://apiv3.apifootball.com/badges/players/92588_aitor-paredes.jpg';
+
+    // Increment the loss count
+    getUserEmail().then(email => {
+      incrementLoss(email);
+    });
 
 };
 

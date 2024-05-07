@@ -19,6 +19,29 @@ export function incrementWin(gameField, userEmail) {
         });
 }
 
+export function incrementLoss(userEmail) {
+    console.log('incrementLoss userEmail:', userEmail);
+    fetch('/increment-loss', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: userEmail }),
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                console.log('Loss count incremented successfully');
+            } else {
+                console.error('Failed to increment loss count:', data.message);
+            }
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+
+}
+
 export function getUserEmail()  {
     return fetch('/get-user-email')
         .then(response => response.json())

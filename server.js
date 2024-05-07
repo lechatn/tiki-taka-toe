@@ -119,6 +119,27 @@ app.post('/increment-win', async (req, res) => {
     }
 });
 
+app.post('/increment-loss', async (req, res) => {
+    const { email} = req.body;
+
+    try {
+        const collection = client.db("login").collection("login");
+
+        // Find user with given email and increment the game field
+        const result = await collection.updateOne({ email }, { $inc: { totalLoss: 1 } });
+        await collection.updateOne({ email }, { $inc: { totalGames: 1 } });
+
+        if (result.matchedCount === 0) {
+            throw new Error('No user found with given email');
+        }
+
+        res.json({ status: 'success', message: 'User win count incremented successfully' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ status: 'error', message: 'An error occurred while incrementing win count' });
+    }
+});
+
 app.get('/is-logged-in', (req, res) => {
 
     if (req.session.user) {
