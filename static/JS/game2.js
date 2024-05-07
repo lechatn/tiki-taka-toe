@@ -88,10 +88,18 @@ function tryPlayer(playerToGuess, userInput, turn, circles) {
 
 if (turn === 3) {
   document.querySelector(".revealPhoto").style.display = "block";
+  let img = document.querySelector(".player"); // Display the player photo
+  img.onerror = function() {
+    img.src = 'https://apiv3.apifootball.com/badges/players/92588_aitor-paredes.jpg';
+  }
 }
   if (turn === 6) { // If the user has made 6 tries, the game is over
-    document.querySelector(".player").src = photo;
-    document.querySelector(".player").style.display = "block"; // Display the player photo
+    let image = document.querySelector(".player")
+    image.src = photo; // Display the player photo
+    image.onerror = function() {
+      image.src = 'https://apiv3.apifootball.com/badges/players/92588_aitor-paredes.jpg';
+    }
+    image.style.display = "block";
     document.querySelector(".revealPhoto").style.display = "none";
     document.querySelector(".playagain").style.display = "block"; // Display the play again button
     document.querySelector("#defeatMessage").textContent =
@@ -99,7 +107,6 @@ if (turn === 3) {
     document.querySelector("#defeatMessage").style.display = "block";
     document.querySelector("#defeatMessage").style.color = "red";
     document.querySelector("#defeatMessage").style.fontSize = "1.5em";
-    
   }
   let box = document.querySelector(`.box${turn + 1}`); // Display the next circles
   for (let i = 0; i < playerToGuess.length; i++) {
@@ -112,8 +119,12 @@ if (turn === 3) {
   }
   if (find) { // If the user has found the player, the game is over
     document.querySelector(`.box${turn + 1}`).style.display = "none";
-    document.querySelector(".player").src = photo; // Display the player photo
-    document.querySelector(".player").style.display = "block";
+    let image = document.querySelector(".player") // Display the player photo
+    image.src = photo;
+    image.onerror = function() {
+      image.src = 'https://apiv3.apifootball.com/badges/players/92588_aitor-paredes.jpg';
+    }
+    image.style.display = "block";
     document.querySelector(".revealPhoto").style.display = "none";
     document.querySelector(".playagain").style.display = "block"; // Display the play again button
     document.querySelector("#victoryMessage").textContent =
