@@ -111,7 +111,7 @@ function testplayer(
     displayGuess(player, playerToGuess, playerTeam, playerTeamToGuess, turn); // Display the player
   }
   turn++;
-  if (turn === 1) { // If the user has made 7 turns, the game is over
+  if (turn === 6) { // If the user has made 7 turns, the game is over
     let new_data = "<p>Game Over, the good player was " +
       playerToGuess.player_name + "</p>" + "<img id='gameOverImage' src='" +
       playerToGuess.player_image +
