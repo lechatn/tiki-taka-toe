@@ -12,7 +12,6 @@
 </head>
 
 <body>
-
     <div class="nav">
         <button class="burger" onclick="show()">
             <div id="bar1" class="bar"></div>
@@ -35,8 +34,7 @@
                     <p>Who has this stat</p>
                 </li>
                 <li>
-                    <a href="game4.html">Bingo</a>
-                    <p>Description</p>
+                    <a href="#">Coming Soon</a>
                 </li>
                 <li>
                     <a href="/">Back to lobby</a>
@@ -128,12 +126,12 @@
                     </div>
                 </div>
                 <div class="game">
-                    <div class="game-img">
-                        <img src="/" alt="Bingo">
+                    <div class="comingsoon">
+                        <img src="/IMG/comingsoon.png" alt="Soon">
                     </div>
                     <div class="game-info">
-                        <h2>Bingo</h2>
-                        <a href="game4.html">
+                        <h2>Coming soon</h2>
+                        <a class="locked" href="#">
                             Play game
                         </a>
                     </div>
@@ -144,13 +142,18 @@
     </main>
     <script src="/JS/login.js"></script>
     <script src="/JS/burger.js"></script>
-    <script>
+    <script type="module">
+        import {getUserStats } from '/JS/incrementWin.js';
         window.onload = function() {
             fetch('/is-logged-in')
                 .then(response => response.json())
                 .then(data => {
                     if (data.isLoggedIn) {
-                        document.querySelector('.button-connection').innerHTML = '<a href="account.html" class="account-link"><i class="material-icons">account_circle</i></a><button id="logoutButton" style="display: none;">Logout</button>';
+                        getUserStats().then(stats => {
+                            document.querySelector('.username').textContent = stats.username;
+                            console.log(stats.username);
+                        });
+                        document.querySelector('.button-connection').innerHTML = '<p class="username"></p> <a href="account.html" class="account-link"><i class="material-icons">account_circle</i></a><button id="logoutButton" style="display: none;">Logout</button>';
                         const logoutButton = document.getElementById('logoutButton');
                         if (logoutButton) {
                             logoutButton.style.display = 'block'; // Show the logout button

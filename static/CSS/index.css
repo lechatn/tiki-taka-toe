@@ -12,7 +12,7 @@
     grid-template-rows: 1fr 1fr;
     margin: auto;
     width: 60%;
-    height: 20vh;
+    height: 25vh;
     padding: 10px;
     border-radius: 20px;
     background-color: var(--red);
@@ -28,7 +28,7 @@
     color: white;
     text-decoration: none;
     position: absolute;
-    bottom: 5px;
+    bottom: 15px;
     right: 10px;
 }
 
@@ -54,4 +54,15 @@
     justify-content: space-between;
     align-items: center;
     text-align: center;
+}
+
+.comingsoon img {
+    width: 100%;
+    height: 75%;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.locked {
+    cursor: not-allowed;
 }
