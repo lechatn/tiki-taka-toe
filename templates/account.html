@@ -95,13 +95,28 @@
             <div class="account">
                 <div class="account-info">
                     <h2>My Infos</h2>
-                    <p>Email: <p class="email"> </p></p>
-                    <p>Username: <p class="username1"> </p></p>
+                    <div class="my-infos">
+                        <p>Email: <span class="email"> </span></p>
+                        <p>Username: <span class="username1"> </span></p>
+                    </div>
                 </div>
                 <div class="account-stats">
-                    <h2>My Stats</h2>
-                    <p>Games played: <span id="gamesPlayed"></span></p>
-                    <p>Games won: <span id="gamesWon"></span></p>
+                    <div class="total-stats">
+                        <h2>My Stats</h2>
+                        <div class="my-stats">
+                            <p>Games played: <span id="gamesPlayed"></span></p>
+                            <p>Games won: <span id="gamesWon"></span></p>
+                            <p>Games lost: <span id="gamesLost"></span></p>
+                        </div>
+                    </div>
+                    <div class="game-stats">
+                        <h2>Games Win</h2>
+                        <div class="my-game-stats">
+                            <p>Who are ya: <span id="bingoStatsWin"></span></p>
+                            <p>Player Wordle: <span id="wordleWin"></span></p>
+                            <p>Bingo Stats: <span id="whoAreYaWin"></span></p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -124,6 +139,10 @@
                             document.getElementById('gamesPlayed').textContent = stats.totalGames;
                             console.log(stats);
                             document.getElementById('gamesWon').textContent = stats.totalWin;
+                            document.getElementById('gamesLost').textContent = stats.totalLoss;
+                            document.getElementById('bingoStatsWin').textContent = stats.bingoStatsWin;
+                            document.getElementById('wordleWin').textContent = stats.wordleWin;
+                            document.getElementById('whoAreYaWin').textContent = stats.whoAreYaWin;
                         });
 
                         document.querySelector('.button-connection').innerHTML = '<a href="/">Home</a> <p class="username"></p>  <a href="account.html" class="account-link"><i class="material-icons">account_circle</i></a>    <button id="logoutButton" style="display: none;">Logout</button>';                        const logoutButton = document.getElementById('logoutButton');
