@@ -107,6 +107,7 @@ function testplayer(
   if (player.player_name === playerToGuess.player_name) { // If the player is the good one
     displayGuess(player, playerToGuess, playerTeam, playerTeamToGuess, turn);
     win(playerToGuess); // Start the win function
+    return;
   } else {
     displayGuess(player, playerToGuess, playerTeam, playerTeamToGuess, turn); // Display the player
   }
