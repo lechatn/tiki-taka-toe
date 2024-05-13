@@ -36,13 +36,13 @@ async function isValide(player) {
   return true;
 }
 
-function randomPlayer() {
+function randomPlayer() { // Function to get a random player
   let randomPlayer =
     playerArray[Math.floor(Math.random() * playerArray.length)];
   return randomPlayer;
 }
 
-function randomStat(player) {
+function randomStat(player) { // Function to get a random stat of the player i choose randomly
   let stats = [
     "player_age",
     "player_number",
@@ -55,7 +55,7 @@ function randomStat(player) {
   return { stat: randomStat, value: player[randomStat]};
 }
 
-function getOtherPlayers(player, stat) {
+function getOtherPlayers(player, stat) { // Function to get 4 other players who doesnt have the random stat choose before
   let others = [];
   while (others.length < 4) {
     let otherPlayer = randomPlayer();
@@ -69,7 +69,7 @@ function getOtherPlayers(player, stat) {
   return others;
 }
 
-function displayStat(result) {
+function displayStat(result) { // Function to display the stat of the player
   let statDiv = document.querySelector(".stat");
   statDiv.innerHTML = `${result.value}`;
   document.querySelector(".stat").style.fontSize = "1.5em";
@@ -87,7 +87,7 @@ function displayStat(result) {
   }
 }
 
-function shuffleArray(array) {
+function shuffleArray(array) { // Function to shuffle the array of players because the player i choose randomly is always the first one
     for (let i = array.length - 1; i > 0; i--) {
         let j = Math.floor(Math.random() * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
@@ -96,7 +96,7 @@ function shuffleArray(array) {
 
 let attempts = 3;
 
-function displayPlayers(selectedPlayer, others) {
+function displayPlayers(selectedPlayer, others) { // Function to display the players names and their images
     let players = [selectedPlayer, ...others];
     shuffleArray(players);
     let playersDiv = document.querySelector(".players");
