@@ -86,14 +86,14 @@ function tryPlayer(playerToGuess, userInput, turn, circles) {
     circles[i].disabled = true;
   }
 
-if (turn === 3) {
+if (turn === 1) {
   document.querySelector(".revealPhoto").style.display = "block";
   let img = document.querySelector(".player"); // Display the player photo
   img.onerror = function() {
     img.src = 'https://apiv3.apifootball.com/badges/players/92588_aitor-paredes.jpg';
   }
 }
-  if (turn === 6) { // If the user has made 6 tries, the game is over
+  if (turn === 3) { // If the user has made 6 tries, the game is over
     let image = document.querySelector(".player")
     image.src = photo; // Display the player photo
     image.onerror = function() {
