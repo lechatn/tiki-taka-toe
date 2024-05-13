@@ -47,16 +47,16 @@ function launchGame(result) {
   let turn = 0;
   for (let i = 0; i < playerToGuess.length; i++) { // Display the firsts circles
     if (i === 0) {
-      let new_data = `<input type="text" class="circle" maxlength="1" value="${
+      let new_data = `<input type="text" class="circle1" maxlength="1" value="${
         playerToGuess[i]
       }" style="background-color: rgb(34, 197, 94);" readonly></input>`; // Display the first circle with the first letter of the player name
       box1.innerHTML += new_data;
     } else if (i === 1) {
       let new_data =
-        '<input type="text" class="circle" maxlength="1" autofocus></input>'; // Make the autofocus on the second circle
+        '<input type="text" class="circle1" maxlength="1" autofocus></input>'; // Make the autofocus on the second circle
       box1.innerHTML += new_data;
     } else {
-      let new_data = `<input type="text" class="circle" maxlength="1"></input>`;
+      let new_data = `<input type="text" class="circle1" maxlength="1"></input>`;
       box1.innerHTML += new_data;
     }
   }
@@ -151,12 +151,7 @@ if (turn === 3) {
 
 function playGame(playerToGuess, userInput, turn) {
   userInput = "";
-  let circles;
-  if (turn === 0) {
-    circles = document.querySelectorAll(".circle");
-  } else {
-    circles = document.querySelectorAll(`.circle${turn + 1}`);
-  }
+  let circles = document.querySelectorAll(`.circle${turn + 1}`);
   circles[1].focus(); // Put the focus on the second circle
   circles.forEach((circle, index) => { // Add event listeners on each circle
     circle.addEventListener("input", () => { // When the user types a letter
@@ -183,7 +178,6 @@ function playGame(playerToGuess, userInput, turn) {
         ).join("").toLocaleLowerCase;
         if (userInput.length > 0) {
           userInput = userInput.slice(0, -1); // Remove the last letter of the user input
-          console.log(userInput);
         } else if (userInput.length === 1) {
           userInput = "";
         }

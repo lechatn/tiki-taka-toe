@@ -39,7 +39,6 @@ async function isValide(player) {
 function randomPlayer() {
   let randomPlayer =
     playerArray[Math.floor(Math.random() * playerArray.length)];
-    console.log(randomPlayer.player_name);
   return randomPlayer;
 }
 
@@ -117,7 +116,6 @@ function displayPlayers(selectedPlayer, others) {
     });
 
     players.forEach((player, index) => {
-        console.log(player, index);
         document.querySelector(`.player${index}`).addEventListener('click', function() {
             if (selectedPlayer === player) {
                 win(player);
@@ -141,7 +139,6 @@ function Game() {
 
   let player = randomPlayer();
   let result = randomStat(player);
-  console.log(result);
   let others = getOtherPlayers(player, result.stat);
   displayStat(result);
   displayPlayers(player, others, result);

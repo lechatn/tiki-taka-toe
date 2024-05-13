@@ -101,8 +101,6 @@ function testplayer(
   playerTeamToGuess,
   turn,
 ) {
-  console.log(player.player_name);
-  console.log(playerToGuess);
   let resultBox = document.querySelector(".map");
 
   if (player.player_name === playerToGuess.player_name) { // If the player is the good one
