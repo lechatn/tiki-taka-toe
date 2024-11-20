@@ -1,33 +1,77 @@
-# Nom du projet : tiki-taka-toe-js
+# Tiki-Taka-Toe-JS
 
-# Fonctionalités principales :
+## Description du projet
 
-# - Site avec plusieurs minijeux liés au football
+**Tiki-Taka-Toe-JS** est un site web proposant plusieurs mini-jeux ludiques liés à l'univers du football. Chaque jeu met à l'épreuve vos connaissances sur le sport roi à travers des défis variés et captivants. Une fonctionnalité bonus permet de créer un compte utilisateur pour suivre vos performances et consulter vos statistiques.
 
-# - Premier jeu : Trouver le nom d un joueur. Des indices sont donnés au fil de la partie tel que le numéro du joueur, son age, son club,
+---
 
-# la ligue ou il joue, ...
+## Fonctionnalités principales
 
-# - Deuxieme jeu : Jeu de motus avec le nom des joueurs.
+### Jeux disponibles :
+1. **Trouver le nom d'un joueur** :
+   - Recevez des indices progressivement pour identifier le joueur mystère.
+   - Indices possibles : numéro, âge, club, ligue, etc.
 
-# - Troisième : Trouver un joueur en fonction d'une statistique donnée avec 3 chances.
+2. **Motus Football** :
+   - Jeu de type "motus" où vous devez deviner le nom des joueurs.
 
-# - Quatrième : Pas encore défini
+3. **Statistiques Mystères** :
+   - Trouvez un joueur en fonction d'une statistique donnée.
+   - Vous avez 3 chances pour deviner correctement.
 
-# - En bonus : Une page de login avec possibilité de créer un compte et d'enregistrer notre progression pour pouvoir consulter nos statistiques sur le jeu
+4. **Quatrième jeu** :
+   - En cours de création, restez à l'écoute pour les mises à jour.
 
-# Resultat final : Les 3 premiers jeux sont fonctionnels, le quatrième en cours de création.
+### Bonus :
+- **Compte utilisateur** :
+   - Créez un compte ou connectez-vous pour suivre vos performances.
+   - Accédez à vos statistiques via le logo de compte.
 
-# Comment lancer le jeu ? : Il suffit de lancer la commande "node server.js". En suite, cliquez sur le lien qui s'affiche dans la console.
+---
 
-# Description du site :
+## Langages utilisés
 
-# La page d'acueil propose un accès au 3 jeux que nous avons créés. On peut égalemment créer notre compte ou se connecter ce qui nous permet de suivre nos performances afficher lorqu'on clique sur le logo de compte.
+Le projet a été développé avec les technologies suivantes :
+- **JavaScript** 
+- **HTML**
+- **CSS**
 
-# Les 3 jeux possedent un bouton "play again" pour pouvoir relancer le jeu.
+---
 
-# Un menu burger est égalemment disponible sur la gauche de l'écran. Il permet de naviguer plus facilemment entre les jeux et permet aussi de revenir directement à la page d'accueil.
+## Navigation
 
-# Sur la page "sign up", un logo de ballon de football est disponible pour revenir à la page d'accueil
+### Page d'accueil :
+- Présente les jeux disponibles.
+- Permet de créer un compte ou de se connecter.
+- Inclut un bouton "play again" dans chaque jeu pour relancer une partie.
 
-# Les accès au jeux qui ne sont pas encore mis à disposition du client sont tous bloqués.
+### Menu Burger :
+- Situé sur la gauche de l'écran.
+- Permet de naviguer facilement entre les jeux.
+- Inclut un raccourci pour revenir à la page d'accueil.
+
+### Page "Sign Up" :
+- Possède un logo de ballon de football pour revenir à la page d'accueil.
+
+### Accès restreint :
+- Les jeux non encore finalisés sont bloqués pour les utilisateurs.
+
+---
+
+
+---
+
+## Limitation actuelle
+
+Le site n'est actuellement **plus fonctionnel** en raison de l'inaccessibilité de l'API utilisée pour récupérer les données sur les joueurs.
+
+---
+
+## Comment lancer le projet ?
+
+1. Installez les dépendances nécessaires via `npm install`.
+2. Lancez le serveur avec la commande suivante :  
+   ```bash
+   node server.js
+3. Cliquez sur le lien généré dans la console pour acceder au site
