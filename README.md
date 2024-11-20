@@ -57,11 +57,6 @@ Le projet a été développé avec les technologies suivantes :
 ### Accès restreint :
 - Les jeux non encore finalisés sont bloqués pour les utilisateurs.
 
----
-
-
----
-
 ## Limitation actuelle
 
 Le site n'est actuellement **plus fonctionnel** en raison de l'inaccessibilité de l'API utilisée pour récupérer les données sur les joueurs.
